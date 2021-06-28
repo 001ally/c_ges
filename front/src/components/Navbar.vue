@@ -3,7 +3,7 @@
   <v-navigation-drawer
         v-model="drawer"
         :mini-variant.sync="mini"
-        permanent
+       
         app
         v-if="this.$router.history.current.fullPath != '/'"
         clipped
@@ -26,7 +26,7 @@
 
           <v-list dense>
             <v-list-item v-for="item in items" :key="item.title" link 
-            @click="item.action">
+            @click="item.action" router :to="item.route">
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-icon>
@@ -45,13 +45,16 @@
           clipped-left
         >
         <v-toolbar>
-          <v-toolbar-title >
-           
+          <v-toolbar-title class="text-uppercase" >
+           <span class="font-weight-light">C_</span> 
+           <span>ges</span>
           </v-toolbar-title>
-          <v-toolbar-items>
-              
-          </v-toolbar-items>
+          <v-spacer></v-spacer>
+          <v-btn flat>
+            <span> Sair </span> 
             
+          </v-btn>
+         
         </v-toolbar>
         </v-app-bar>
         
@@ -65,15 +68,17 @@
 </template>
 <script>
 export default {
+  name:'dashboard',
    data () {
       return {
         me: require('../assets/me.png'),
         drawer: true,
         items: [
-          { title: 'Home', icon: 'mdi-home-city', action:()=>{} },
-          { title: 'My Account', icon: 'mdi-account', action:()=>{} },
-          { title: 'Users', icon: 'mdi-account-group-outline',action:()=>{} },
-          { title: 'Logout', icon: 'mdi-logout', action:()=>{this.$router.push('/')} }
+          { title: 'Página inicial', icon: 'mdi-home', route:'/Navbar'},
+          { title: 'Minha conta', icon: 'mdi-account', route:'/profile',action:()=>{} },
+          { title: 'Edificios', icon: 'mdi-city', route:'/edificio',action:()=>{} },
+          { title: 'Sair', icon: 'mdi-logout', action:()=>{this.$router.push('/')} },
+          //{ title: 'Sair', icon: 'mdi-logout', action:()=>{this.$router.push('/')} }
         ],
         mini: true,
       }
