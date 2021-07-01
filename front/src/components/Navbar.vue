@@ -1,8 +1,5 @@
-<template>
-
-  <v-app>
-  
-  <v-navigation-drawer
+<template>  
+  <!-- <v-navigation-drawer
         v-model="drawer"
         :mini-variant.sync="mini"
         app
@@ -11,11 +8,11 @@
       >
       
       <v-list-item class="px-2">
-            <v-list-item-avatar>
-              <v-img
-                :src="me"
-              ></v-img>
-            </v-list-item-avatar>
+        <v-list-item-avatar>
+          <v-img
+            :src="me"
+          ></v-img>
+        </v-list-item-avatar>
 
             <v-list-item-title>Alícia Pereira</v-list-item-title>
 
@@ -38,30 +35,28 @@
               </v-list-item-content>
 
             </v-list-item>
-            
           </v-list>
-
-        </v-navigation-drawer>
-          
-          <v-app-bar
-          app
-          v-if="this.$router.history.current.fullPath != '/'"
-          clipped-left
-        >
-        <v-toolbar>
-          <v-toolbar-title class="text-uppercase" >
-           <span class="font-weight-light">C_</span> 
-           <span>ges</span>
-          </v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-btn @click="logOut()" text>
-            <span> Sair </span> 
-            
-          </v-btn>
-         
-        </v-toolbar>
-        </v-app-bar>
-       <v-main>
+  </v-navigation-drawer>
+           -->
+  <v-app-bar
+      app
+      v-if="this.$router.history.current.fullPath != '/'"
+      clipped-left
+    >
+    <v-toolbar>
+      <v-toolbar-title class="text-uppercase" >
+        <span class="font-weight-light">C_</span> 
+        <span>ges</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn @click="logOut()" text>
+        <span>Sair</span> 
+        
+      </v-btn>
+      
+    </v-toolbar>
+  </v-app-bar>
+       <!-- <v-main>
          <div class="content">
             <div style="text-align:center">
               <img src="../assets/logosf.png" width="200" alt="logo">
@@ -71,39 +66,27 @@
          </v-btn> 
         
          </div>
-        
-  
-   
-      <router-view/>
-    </v-main>
-  </v-app>
+      
+    </v-main> -->
 </template>
 <script>
 export default {
   name:'dashboard',
-   data () {
-      return {
-        me: require('../assets/me.png'),
-        drawer: true,
-        items: [
-          { title: 'Página inicial', icon: 'mdi-home', route:'/Navbar'},
-          { title: 'Minha conta', icon: 'mdi-account', route:'/profile'},
-          { title: 'Edificios', icon: 'mdi-city', route:'/edificio',action:()=>{} },
-          { title: 'Sair', icon: 'mdi-logout', action:()=>{ this.$router.push('/')} },
-         
-        ],
-        mini: true,
-      }
-     
-    } ,
-     methods:{
-        logOut(){
-          this.$router.push('/')
-        },
-  modal(){
+  
+  data () {
+    return {
+    }
+  },
 
+  methods:{
+    logOut(){
+      this.$router.push('/')
+    },
+
+    modal(){
+
+    }
   }
-      }
 }
 </script>
 

@@ -1,11 +1,9 @@
 <template>
 <div class="edificio"> 
 
-    <v-app>
-
-          <h1>Edificios</h1> 
-            <v-divider></v-divider>
-            <div class="cards">
+  <h1>Edificios</h1> 
+    <v-divider></v-divider>
+    <div class="cards">
 
 
   <v-card
@@ -111,14 +109,17 @@
   </v-card>
 </div>
 
-  <router-view/>
-    </v-app>
     
   </div>
 </template>
 <script>
 export default {
-  data(){},
+  data () {
+    return {
+
+    }
+  },
+  
   methods:{
     edificioDetails(){
       this.$router.push('/edificioDetails')
@@ -128,7 +129,8 @@ export default {
 </script>
 <style scoped>
 .edificio {
-  
+  margin-top: 80px;
+  margin-left: 60px;
   align-items: center;
   justify-content: center;
 }

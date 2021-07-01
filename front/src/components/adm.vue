@@ -1,93 +1,91 @@
 <template>
-<div class="adm">
+  <div class="adm">
+    <v-sheet
+      color="white"
+      elevation="14"
+      height="50"
+      width="2550">
+    </v-sheet>
 
+    <v-container class="grey lighten-3" id="login-page">
+      <v-row class="d-flex justify-center">
+        <v-col cols="6">
+          <v-img src="../assets/logosf.png" width="" id="logo"></v-img>
+          <v-tabs
+            fixed-tabs
+            background-color="blue-grey lighten-5"
+            color="black"
+            v-model="tabsForm"
+          >
+            <v-tab key="register"> Cadastrar </v-tab>
 
-<v-sheet
-  color="white"
-  elevation="14"
-  height="50"
-  width="2550"
-> </v-sheet>
+            <v-tab key="login"> Fazer Login </v-tab>
+          </v-tabs>
+        </v-col>
+      </v-row>
+      <v-row class="d-flex justify-center">
+        <v-col cols="4">
+          <v-tabs-items v-model="tabsForm" cols="3">
+            <v-tab-item key="register">
+              <v-form class="text-center grey lighten-3">
+                <v-text-field
+                  v-model="name"
+                  label="Name"
+                  :rules="nameRules"
+                  required
+                ></v-text-field>
 
-  <v-container class="grey lighten-3" id="login-page">
-    <v-row class="d-flex justify-center">
-      <v-col cols="6">
-        <v-img src="../assets/logosf.png" width="" id="logo"></v-img>
-        <v-tabs
-          fixed-tabs
-          background-color="blue-grey lighten-5"
-          color="black"
-          v-model="tabsForm"
-        >
-          <v-tab key="register"> Cadastrar </v-tab>
+                <v-text-field
+                  v-model="email"
+                  label="Email"
+                  :rules="emailRules"
+                  required
+                ></v-text-field>
 
-          <v-tab key="login"> Fazer Login </v-tab>
-        </v-tabs>
-      </v-col>
-    </v-row>
-    <v-row class="d-flex justify-center">
-      <v-col cols="4">
-        <v-tabs-items v-model="tabsForm" cols="3">
-          <v-tab-item key="register">
-            <v-form class="text-center grey lighten-3">
-              <v-text-field
-                v-model="name"
-                label="Name"
-                :rules="nameRules"
-                required
-              ></v-text-field>
+                <v-text-field
+                  v-model="password"
+                  label="Senha"
+                  type="password"
+                  :rules="passwordRules"
+                  required
+                ></v-text-field>
 
-              <v-text-field
-                v-model="email"
-                label="Email"
-                :rules="emailRules"
-                required
-              ></v-text-field>
+                <v-btn
+                  color="success"
+                  class="justify-space-between"
+                  @click="Registrar()"
+                >
+                  Registrar
+                </v-btn>
+              </v-form>
+            </v-tab-item>
+            <v-tab-item key="login">
+              <v-form class="text-center grey lighten-3">
+                <v-text-field
+                  v-model="email"
+                  label="Email"
+                  :rules="emailRules"
+                  required
+                ></v-text-field>
 
-              <v-text-field
-                v-model="password"
-                label="Senha"
-                type="password"
-                :rules="passwordRules"
-                required
-              ></v-text-field>
+                <v-text-field
+                  v-model="password"
+                  label="Senha"
+                  type="password"
+                  :rules="passwordRules"
+                  required
+                ></v-text-field>
 
-              <v-btn
-                color="success"
-                class="justify-space-between"
-                @click="Registrar()"
-              >
-                Registrar
-              </v-btn>
-            </v-form>
-          </v-tab-item>
-          <v-tab-item key="login">
-            <v-form class="text-center grey lighten-3">
-              <v-text-field
-                v-model="email"
-                label="Email"
-                :rules="emailRules"
-                required
-              ></v-text-field>
-
-              <v-text-field
-                v-model="password"
-                label="Senha"
-                type="password"
-                :rules="passwordRules"
-                required
-              ></v-text-field>
-
-              <v-btn color="primary" class="justify-space-between" @click="Acessar()">
-                Acessar
-              </v-btn>
-            </v-form>
-          </v-tab-item>
-        </v-tabs-items>
-      </v-col>
-    </v-row>
-    <router-link to=""/>
-  </v-container>
+                <v-btn color="primary" class="justify-space-between" @click="Acessar()">
+                  Acessar
+                </v-btn>
+              </v-form>
+            </v-tab-item>
+          </v-tabs-items>
+        </v-col>
+      </v-row>
+      <router-link to=""/>
+    </v-container>
   </div>
 </template>
 <style scoped>
@@ -147,10 +145,11 @@ export default {
      
     },
     Acessar(){
-
      // this.$router.push({name: 'Navbar'})
+     this.$router.push({name: 'dashboard'})
+     
      login(this.email,this.password).then(() =>{
-       this.$router.push({name: 'Navbar'})
+       this.$router.push({name: 'dashboard'})
 
      })
      .catch( error => {
