@@ -1,4 +1,14 @@
 <template>
+<div class="adm">
+
+
+<v-sheet
+  color="white"
+  elevation="14"
+  height="50"
+  width="2550"
+> </v-sheet>
+
   <v-container class="grey lighten-3" id="login-page">
     <v-row class="d-flex justify-center">
       <v-col cols="6">
@@ -76,8 +86,9 @@
         </v-tabs-items>
       </v-col>
     </v-row>
-    <router-link/>
+    <router-link to=""/>
   </v-container>
+  </div>
 </template>
 <style scoped>
 #login-page {
@@ -85,6 +96,12 @@
 }
 #logo {
   margin: 20px 0;
+}
+*{
+  background-image: url('../assets/build.jpg');
+  background-repeat:repeat-x;
+  
+
 }
 </style>
 <script>
@@ -127,12 +144,7 @@ export default {
   }),
   methods: {
     Registrar() {
-      this.Registro.push({
-        id: this.Registro.length + 1,
-        name: this.newRegistro.name,
-        email: this.newRegistro.email,
-        senha: this.newRegistro.password
-      })
+     
     },
     Acessar(){
 
@@ -144,6 +156,7 @@ export default {
      .catch( error => {
        //alert(error.Error)
        console.log(error.response.data.Error);
+       alert('Dados inseridos incorrectos ou campos vazios')
      })
     }
   },

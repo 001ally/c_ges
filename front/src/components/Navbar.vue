@@ -1,13 +1,15 @@
 <template>
+
   <v-app>
+  
   <v-navigation-drawer
         v-model="drawer"
         :mini-variant.sync="mini"
-       
         app
         v-if="this.$router.history.current.fullPath != '/'"
         clipped
       >
+      
       <v-list-item class="px-2">
             <v-list-item-avatar>
               <v-img
@@ -34,7 +36,9 @@
               <v-list-item-content>
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item-content>
+
             </v-list-item>
+            
           </v-list>
 
         </v-navigation-drawer>
@@ -50,18 +54,26 @@
            <span>ges</span>
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn flat>
+          <v-btn @click="logOut()" text>
             <span> Sair </span> 
             
           </v-btn>
          
         </v-toolbar>
         </v-app-bar>
+       <v-main>
+         <div class="content">
+            <div style="text-align:center">
+              <img src="../assets/logosf.png" width="200" alt="logo">
+              </div>
+            <v-btn @click="modal()">
+           criar edificio
+         </v-btn> 
         
-    
-    <v-main>
-         
-       
+         </div>
+        
+  
+   
       <router-view/>
     </v-main>
   </v-app>
@@ -75,19 +87,37 @@ export default {
         drawer: true,
         items: [
           { title: 'Página inicial', icon: 'mdi-home', route:'/Navbar'},
-          { title: 'Minha conta', icon: 'mdi-account', route:'/profile',action:()=>{} },
+          { title: 'Minha conta', icon: 'mdi-account', route:'/profile'},
           { title: 'Edificios', icon: 'mdi-city', route:'/edificio',action:()=>{} },
-          { title: 'Sair', icon: 'mdi-logout', action:()=>{this.$router.push('/')} },
-          //{ title: 'Sair', icon: 'mdi-logout', action:()=>{this.$router.push('/')} }
+          { title: 'Sair', icon: 'mdi-logout', action:()=>{ this.$router.push('/')} },
+         
         ],
         mini: true,
       }
-    } 
+     
+    } ,
+     methods:{
+        logOut(){
+          this.$router.push('/')
+        },
+  modal(){
+
+  }
+      }
 }
 </script>
 
 <style scoped>
-.v-toolbar__content, .v-toolbar__extension{
+/* .v-toolbar__content, .v-toolbar__extension{
   padding: 0 !important;
+} */
+.content{
+  margin: 150px;
+  text-align: center;
+}
+button {
+  margin: 5px;
+ 
+
 }
 </style>

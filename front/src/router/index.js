@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Adm from '../components/adm.vue'
-import Navbar from '../components/Navbar.vue'
-import Login from '../components/Login.vue'
 import dashboard from '../views/dashboard.vue'
 import edificio from '../views/edificio.vue'
 import Profile from '../views/profile.vue'
+import edificioDetails from '../views/edificioDetails.vue'
+import finance from '../views/finance.vue'
 
 Vue.use(VueRouter)
 
@@ -15,22 +15,14 @@ const routes = [
     name: 'adm',
     component: Adm
   },
-  {
-    path: '/Navbar',
-    name: 'Navbar',
-    component: Navbar
-  },
+
   {
     path: '/profile',
     name: 'Profile',
     component: Profile
   },
 
-  {
-    path: '/',
-    name: 'Login',
-    component: Login
-  },
+  
   {
     path: '/dashboard',
     name: 'dashboard',
@@ -40,6 +32,16 @@ const routes = [
     path: '/edificio',
     name: 'edificios',
     component: edificio
+  },
+  {
+    path: '/edificioDetails',
+    name: 'Detalhesedificio',
+    component: edificioDetails
+  },
+  {
+    path: '/finance',
+    name: 'finance',
+    component: finance
   },
 ]
 

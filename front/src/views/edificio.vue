@@ -1,8 +1,13 @@
 <template>
 <div class="edificio"> 
-  
+
     <v-app>
+
           <h1>Edificios</h1> 
+            <v-divider></v-divider>
+            <div class="cards">
+
+
   <v-card
     class="mx-auto"
     max-width="344"
@@ -31,6 +36,8 @@
         outlined
         rounded
         text
+        v-model="edificioDetails"
+        @click="edificioDetails()"
       >
         ver mais
       </v-btn>
@@ -102,12 +109,30 @@
       </v-btn>
     </v-card-actions>
   </v-card>
-
+</div>
 
   <router-view/>
     </v-app>
+    
   </div>
 </template>
 <script>
-
+export default {
+  data(){},
+  methods:{
+    edificioDetails(){
+      this.$router.push('/edificioDetails')
+    }
+  }
+}
 </script>
+<style scoped>
+.edificio {
+  
+  align-items: center;
+  justify-content: center;
+}
+.cards{
+  display: flex;
+}
+</style>
