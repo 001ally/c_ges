@@ -8,7 +8,9 @@
     >
       
     <v-list-item class="px-2">
+      
       <v-list-item-avatar>
+        
         <v-img
           :src="me"
         ></v-img>
@@ -33,7 +35,7 @@
         <v-list-item-content>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item-content>
-
+        
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

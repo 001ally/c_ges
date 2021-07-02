@@ -129,12 +129,14 @@ export default {
 </script>
 <style scoped>
 .edificio {
+  
   margin-top: 80px;
-  margin-left: 60px;
+  margin-left: 280px;
   align-items: center;
   justify-content: center;
 }
 .cards{
   display: flex;
+  margin: 20px;
 }
 </style>

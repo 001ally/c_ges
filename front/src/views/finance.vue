@@ -1,22 +1,16 @@
 <template>
-  <div class="row">
+<div class="finance">
+ <div class="row">
     <div class="col-lg-4">
       <h3>Despesas</h3>
       <br />
       <form>
         <div class="form-group">
-          <label for="exampleFormControlSelect1"
-            >seleccione o tipo de despesa</label
+          <v-select
+          label="seleccione o tipo de despesa"
           >
-          <select
-            class="form-control"
-            id="exampleFormControlSelect1"
-            v-model="newDespesa.categoria"
-          >
-            <option>Familiar</option>
-            <option>Carros</option>
-            <option>Casa</option>
-          </select>
+           
+          </v-select>
         </div>
         <div class="form-group">
           <label for="exampleFormControlTextarea1">Descrição</label>
@@ -95,12 +89,14 @@
       </form>
     </div>  <br>
 <div class="col-lg-4">
-<h3>Proveito</h3>
+<h3>Pagamentos</h3>
 </div>
 <div class="col-lg-4">
-<h3>Balanço</h3>
+<h3>Saldo disponível</h3>
 </div>
 	</div>	
+</div>
+ 
 </template>
 
 <script>
@@ -154,6 +150,10 @@ methods: {
 
 
 <style scoped>
+.finance{
+   margin-left: 260px;
+  margin-top: 80px;
+}
 h3 {
   margin: 40px 0 0;
 }

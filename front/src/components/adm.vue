@@ -146,7 +146,7 @@ export default {
     },
     Acessar(){
      // this.$router.push({name: 'Navbar'})
-     this.$router.push({name: 'dashboard'})
+    //  this.$router.push({name: 'dashboard'})
      
      login(this.email,this.password).then(() =>{
        this.$router.push({name: 'dashboard'})
