@@ -95,16 +95,12 @@
 #logo {
   margin: 20px 0;
 }
-*{
-  background-image: url('../assets/build.jpg');
-  background-repeat:repeat-x;
-  
 
-}
 </style>
 <script>
 
-import {login} from '../api/auth'
+import {login, registro} from '../api/auth'
+
 
 export default {
   name: "app",
@@ -142,7 +138,9 @@ export default {
   }),
   methods: {
     Registrar() {
-     
+     registro(this.name, this.email, this.password).then(res =>{
+       console.log(res.data);
+     })
     },
     Acessar(){
      // this.$router.push({name: 'Navbar'})

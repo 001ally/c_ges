@@ -21,5 +21,10 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'apartamento',
   });
+  sequelize.define('apartamento', {
+    // ... (attributes)
+  }, {
+    freezeTableName: true
+  });
   return apartamento;
 };

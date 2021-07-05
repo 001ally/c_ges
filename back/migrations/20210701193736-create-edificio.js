@@ -1,5 +1,6 @@
 'use strict';
 module.exports = {
+ 
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('edificio', {
       id: {
@@ -21,7 +22,8 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+    
     });
   },
   down: async (queryInterface, Sequelize) => {

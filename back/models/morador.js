@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     pagamentototal: DataTypes.DOUBLE
   }, {
     sequelize,
+    tableName: 'morador',
     modelName: 'morador',
   });
+
   return morador;
 };

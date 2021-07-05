@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     valor: DataTypes.DOUBLE
   }, {
     sequelize,
+  
     modelName: 'pagamentos',
   });
+  
   return pagamentos;
 };

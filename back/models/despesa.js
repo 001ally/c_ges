@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     data: DataTypes.DATE
   }, {
     sequelize,
+    tableName: 'despesa',
     modelName: 'despesa',
   });
+
   return despesa;
 };

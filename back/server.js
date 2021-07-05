@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const mysql = require('mysql2')
 const bodyParser = require('body-parser')
@@ -19,5 +20,5 @@ return res.send('Hello ...')
 })
 
 
-app.listen('4000')
+app.listen('1000')
 console.log('Listening ON PORT ...');

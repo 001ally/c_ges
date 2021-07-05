@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   user.init({
+    
     iduser: DataTypes.INTEGER,
     name: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -23,5 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'user',
     modelName: 'user',
   });
+  user.removeAttribute('id')
   return user;
 };
