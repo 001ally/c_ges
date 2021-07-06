@@ -1,31 +1,31 @@
 <template>
-<div class="finance">
- <div class="row">
-    <div class="col-lg-4">
-      <h3>Despesas</h3>
-      <br />
-      <form>
+  <div class="finance">
+    <div class="row">
+      <div class="col-lg-4">
+        <v-card>
+          <v-card-text>Despesas</v-card-text>
+          <p class="text-h5 text--primary">500.000 AKZ</p>
+        </v-card>
+       <v-card-actions>
+            <v-btn>Adicionar Tipo de despesa</v-btn> 
+             <v-btn> Guardar Despesa</v-btn>
+          </v-card-actions>
+
         <div class="form-group">
-          <v-select
-          label="seleccione o tipo de despesa"
-          >
-           
-          </v-select>
+          <v-select label="seleccione o tipo de despesa"> </v-select>
         </div>
         <div class="form-group">
-          <label for="exampleFormControlTextarea1">Descrição</label>
-          <textarea
-            v-model="newDespesa.descricao"
-            class="form-control"
-            id="exampleFormControlTextarea1"
-            rows="2"
-            placeholder="Descreva o que pretende pagar este mês"
-          ></textarea>
+          <v-textarea
+            label="Descreva com mais detalhes o que pretende pagar(opcional)"
+            filled
+            name="input-7-4"
+            value=""
+          >
+          </v-textarea>
         </div>
 
         <div class="form-group">
-          <label for="exampleFormControlInput1">valor da dívida</label>
-          <input
+          <v-input
             v-model="newDespesa.valor"
             type="number"
             class="form-control"
@@ -33,27 +33,49 @@
             placeholder="50.000"
           />
         </div>
-        <div class="form-group">
-          <label for="example-date-input" class="col-2 col-form-label"
-            >Date</label
-          >
-          <div class="col-10">
-            <input
+
+        <!-- <v-date-picker
               v-model="newDespesa.dat"
               class="form-control"
               type="date"
               value="2011-08-19"
               id="example-date-input"
-            />
-          </div>
-        </div>
-        <br />
-        <button
+            /> -->
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :return-value.sync="date"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="date"
+              label="Picker in menu"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="date" no-title scrollable>
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="menu = false"> Cancel </v-btn>
+            <v-btn text color="primary" @click="$refs.menu.save(date)">
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
+
+        <v-btn
           type="button"
           class="btn btn-primary btn-sm"
-          @click="addDespesa()">
+          @click="addDespesa()"
+        >
           Guardar despesa
-        </button>
+        </v-btn>
         <br /><br />
         <table class="table table-dark">
           <thead>
@@ -63,7 +85,7 @@
               <th scope="col">Descrição</th>
               <th scope="col">valor</th>
               <th scope="col">Data</th>
-							<th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -73,37 +95,47 @@
               <td>{{ despesa.descricao }}</td>
               <td>{{ despesa.valor }}</td>
               <td>{{ despesa.dat }}</td>
-							<td>
-								<button @click="edit(despesa)" type="button" class="btn btn-info">Editar</button>	 
-								<button @click="remove(despesa)" class="btn btn-danger btn-sm">
-									Excluir
-								</button>
-							</td>
+              <td>
+                <button
+                  @click="edit(despesa)"
+                  type="button"
+                  class="btn btn-info"
+                >
+                  Editar
+                </button>
+                <button @click="remove(despesa)" class="btn btn-danger btn-sm">
+                  Excluir
+                </button>
+              </td>
             </tr>
           </tbody>
-							<br>		
-						<button @click="removeAll()" class="btn btn-danger btn-sm">
-									Excluir Tudo
-								</button>
+          <br />
+          <button @click="removeAll()" class="btn btn-danger btn-sm">
+            Excluir Tudo
+          </button>
         </table>
-      </form>
-    </div>  <br>
-<div class="col-lg-4">
-<h3>Pagamentos</h3>
-</div>
-<div class="col-lg-4">
-<h3>Saldo disponível</h3>
-</div>
-	</div>	
-</div>
- 
+      </div>
+      <br />
+      <div class="col-lg-4">
+        <h3>Pagamentos</h3>
+      </div>
+      <div class="col-lg-4">
+        <h3>Saldo disponível</h3>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-			Despesas: [],
+      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      menu: false,
+
+      Despesas: [],
       newDespesa: {
         id: 0,
         categoria: null,
@@ -111,47 +143,45 @@ export default {
         valor: null,
         dat: null,
       },
-			index:null,		
+      index: null,
     };
   },
 
-methods: {
-		addDespesa() {
-			this.Despesas.push({
-				id: this.Despesas.length + 1,
-				categoria: this.newDespesa.categoria,
-				descricao: this.newDespesa.descricao,
-				valor: this.newDespesa.valor,
-				dat: this.newDespesa.dat,
-			});
-			this.newDespesa.categoria = "";
-			this.newDespesa.descricao = "";
-			this.newDespesa.valor = "";
-			this.newDespesa.dat = "";
-		},
-	
-		remove(despesa) {
-       const idx = this.Despesas.indexOf(despesa)
-       this.Despesas.splice(idx, 1) 
-      },
-		removeAll(){
-				return this.Despesas = []
-			},
-		edit(despesa) {
-       this.index= this.Despesas.indexOf(despesa)
-       this.newDespesa = Object.assign({}, despesa);
-      },
+  methods: {
+    addDespesa() {
+      this.Despesas.push({
+        id: this.Despesas.length + 1,
+        categoria: this.newDespesa.categoria,
+        descricao: this.newDespesa.descricao,
+        valor: this.newDespesa.valor,
+        dat: this.newDespesa.dat,
+      });
+      this.newDespesa.categoria = "";
+      this.newDespesa.descricao = "";
+      this.newDespesa.valor = "";
+      this.newDespesa.dat = "";
+    },
+
+    remove(despesa) {
+      const idx = this.Despesas.indexOf(despesa);
+      this.Despesas.splice(idx, 1);
+    },
+    removeAll() {
+      return (this.Despesas = []);
+    },
+    edit(despesa) {
+      this.index = this.Despesas.indexOf(despesa);
+      this.newDespesa = Object.assign({}, despesa);
+    },
   },
-   computed: {
-    
-  },
-}
+  computed: {},
+};
 </script>
 
 
 <style scoped>
-.finance{
-   margin-left: 260px;
+.finance {
+  margin-left: 260px;
   margin-top: 80px;
 }
 h3 {
@@ -167,5 +197,9 @@ li {
 }
 a {
   color: #42b983;
+}
+.v-card {
+  text-align: center;
+  padding: 50px;
 }
 </style>

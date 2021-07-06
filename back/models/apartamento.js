@@ -19,12 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     numerofixo: DataTypes.INTEGER
   }, {
     sequelize,
+    tableName:'apartamento',
     modelName: 'apartamento',
   });
-  sequelize.define('apartamento', {
-    // ... (attributes)
-  }, {
-    freezeTableName: true
-  });
+  apartamento.removeAttribute('id')
   return apartamento;
 };

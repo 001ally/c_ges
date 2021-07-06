@@ -14,13 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     fotografia: DataTypes.STRING
   }, {
     sequelize,
+    tableName: 'edificio',
     modelName: 'edificio',
   });
-  sequelize.define('edificio', {
-    // ... (attributes)
-  }, {
-    freezeTableName: true
-  });
-
+ 
   return edificio;
 };

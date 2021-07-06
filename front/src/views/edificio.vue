@@ -109,23 +109,38 @@
   </v-card>
 </div>
 
-    
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
+    created() {
+     
+      axios.get('http://localhost:1000/api/v1/edificio', null).then((response) => {
+        console.log(response.data);
+
+        this.edificios = response.data;
+      }, (error) => {
+        console.log(error);
+      });
+    },
+  
   data () {
     return {
+
+      edificios: []
 
     }
   },
   
   methods:{
-    edificioDetails(){
-      this.$router.push('/edificioDetails')
-    }
+   edificioDetails(){}
+  },
+  computed:{
+    
   }
 }
+
 </script>
 <style scoped>
 .edificio {
