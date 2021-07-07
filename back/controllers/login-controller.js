@@ -25,21 +25,22 @@ module.exports = {
 		console.log(await bcrypt.hash(password,10))
 		bcrypt.compare(password, _user.password)
 		  .then((match) => {
-			  console.log('match' + match)
+              if (match) {
+                const secret = 'B18fbWIyeU1utFA31mzGaVyzjyL9ZnfP'
+                const data = { id: _user.id }
 
+                delete _user.password
 
+                const authToken = jwt.sign(data, secret)
 
-			});
-
-		const pwd_hash =  bcrypt.compareSync(password, _user.password)
-
-		if (!pwd_hash) {
-			return res.status(401).json({erro: 'invalid user or password'})
-			
-		}
-		else{
-			return res.status(200).json({message: 'logado com sucesso'})
-		}
+                return res.send({
+                    user: _user,
+                    token: authToken
+                })
+              } else {
+                return res.status(401).json({erro: 'invalid user or password'})      
+              }
+            
+		});
 	}
-
 }
