@@ -19,9 +19,20 @@ module.exports = {
 		if (!_user ) {
 			return res.status(404).json({message: 'usuario não encontrado'})
 		}
-		
+
+		console.log(_user)
+		console.log(password)
+		console.log(await bcrypt.hash(password,10))
+		bcrypt.compare(password, _user.password)
+		  .then((match) => {
+			  console.log('match' + match)
+
+
+
+			});
+
 		const pwd_hash =  bcrypt.compareSync(password, _user.password)
-		console.log(password, _user.password,pwd_hash);
+
 		if (!pwd_hash) {
 			return res.status(401).json({erro: 'invalid user or password'})
 			

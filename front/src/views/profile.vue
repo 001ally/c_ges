@@ -26,11 +26,11 @@
             <v-container>
               <v-row>
                 <v-file-input
-                accept="image/png, image/jpeg, image/bmp"
-                placeholder="Pick an avatar"
-                prepend-icon="mdi-camera"
-                label="imagem edificio"
-              ></v-file-input>
+                  accept="image/png, image/jpeg, image/bmp"
+                  placeholder="Pick an avatar"
+                  prepend-icon="mdi-camera"
+                  label="imagem edificio"
+                ></v-file-input>
               </v-row>
               <v-row>
                 <v-text-field label="name"></v-text-field>

@@ -17,6 +17,9 @@ module.exports = {
       data: {
         type: Sequelize.DATE
       },
+      valor: {
+        type: Sequelize.DOUBLE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

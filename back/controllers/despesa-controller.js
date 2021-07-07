@@ -9,7 +9,8 @@
                 "tipodespesa",
                 "descricao",
                 "data",
-                "edificio_idedificio"
+                "edificio_idedificio",
+                "valor"
             ]
         }) 
         res.json(despesas)

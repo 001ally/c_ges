@@ -1,22 +1,19 @@
 <template>
   <div class="edificioDetails">
-    
     <div class="top">
       <div class="topContent">
-         <b>D24-</b>
-      <b>Centralidade do kilamba</b>
+        <b>D24-</b>
+        <b>Centralidade do kilamba</b>
       </div>
       <div class="btn">
         <v-btn color="primary">Gerar apartamentos</v-btn>
         <v-btn color="green white--text">Criar apartamento</v-btn>
         <v-btn color="orange white--text" @click="finance()">Finanças</v-btn>
       </div>
-      
-      <!-- <v-btn>Despesas</v-btn>
-    <v-btn>Pagamentos</v-btn> -->
     </div>
 
-    <h3>Apartamentos</h3> <br>
+    <h3>Apartamentos</h3>
+    <br />
     <v-card>
       <v-card-title>
         <v-text-field
@@ -36,7 +33,19 @@
   </div>
 </template>
 <script>
+import axios from "axios";
 export default {
+  created() {
+    axios.get("http://localhost:1000/api/v1/apartamento", null).then(
+      (response) => {
+        this.apartamento = response.data.data;
+        console.log(response.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  },
   data() {
     return {
       search: "",
@@ -65,11 +74,11 @@ export default {
       ],
     };
   },
-  methods:{
-    finance(){
-      this.$router.push('finance')
-    }
-  }
+  methods: {
+    finance() {
+      this.$router.push("finance");
+    },
+  },
 };
 </script>
 <style>
@@ -79,12 +88,10 @@ export default {
 }
 
 .top {
-display: flex;
-justify-content: space-between;
-
+  display: flex;
+  justify-content: space-between;
 }
-button{
-   margin:5px; 
- 
+button {
+  margin: 5px;
 }
 </style>
