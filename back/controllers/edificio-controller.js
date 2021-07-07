@@ -4,7 +4,13 @@ module.exports = {
         const { edificio } = req.db
         const { apartamento } = req.db
         const { user } = req.db
+        
+        const { userId } = req.params;
+
+        console.log(userId);
+
         const edificios = await edificio.findAll({
+            where: { user_iduser: userId },
             attributes: [
                 "idedificio",
                 "nome",

@@ -146,9 +146,13 @@ export default {
      // this.$router.push({name: 'Navbar'})
     //  this.$router.push({name: 'dashboard'})
      
-     login(this.email,this.password).then(() =>{
-       this.$router.push({name: 'dashboard'})
+     login(this.email,this.password).then((response) =>{
+       console.log(response.data)
 
+       localStorage.setItem('token', response.data.token)
+       localStorage.setItem('user', JSON.stringify(response.data.user))
+
+       this.$router.push({name: 'dashboard'})
      })
      .catch( error => {
        //alert(error.Error)

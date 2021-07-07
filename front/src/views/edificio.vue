@@ -3,12 +3,14 @@
     <h1>Edificios</h1>
     <v-divider></v-divider>
     <div class="cards">
-      <v-card class="mx-auto" max-width="344" outlined>
+      <v-card class="mx-auto" max-width="344" outlined
+        v-for="edificio in edificios"
+        :key="edificio.idedificio">
         <v-list-item three-line>
           <v-list-item-content>
             <div class="text-overline mb-4">Edificio</div>
-            <v-list-item-title class="text-h5 mb-1"> D24 </v-list-item-title>
-            <v-list-item-subtitle>Centralidade do kilamba</v-list-item-subtitle>
+            <v-list-item-title class="text-h5 mb-1"> {{ edificio.nome }} </v-list-item-title>
+            <v-list-item-subtitle>{{ edificio.fotografia }}</v-list-item-subtitle>
           </v-list-item-content>
 
           <v-list-item-avatar tile size="80" color="grey"></v-list-item-avatar>
@@ -20,13 +22,13 @@
             rounded
             text
             v-model="edificioDetails"
-            @click="edificioDetails()"
+            @click="edificioDetails(edificio)"
           >
             ver mais
           </v-btn>
         </v-card-actions>
       </v-card>
-      <v-card class="mx-auto" max-width="344" outlined>
+      <!-- <v-card class="mx-auto" max-width="344" outlined>
         <v-list-item three-line>
           <v-list-item-content>
             <div class="text-overline mb-4">Edificio</div>
@@ -55,7 +57,7 @@
         <v-card-actions>
           <v-btn outlined rounded text> ver mais </v-btn>
         </v-card-actions>
-      </v-card>
+      </v-card> -->
     </div>
   </div>
 </template>
@@ -63,9 +65,17 @@
 import axios from "axios";
 export default {
   created() {
-    axios.get("http://localhost:1000/api/v1/edificio", null).then(
+    let user = localStorage.getItem('user')
+
+    if (user) {
+      user = JSON.parse(user)
+    }
+
+    console.log(user)
+
+    axios.get("http://localhost:1000/api/v1/edificio/" + user.iduser, null).then(
       (response) => {
-        this.edificios = response.data.data;
+        this.edificios = response.data;
         console.log(response.data);
       },
       (error) => {
@@ -80,7 +90,9 @@ export default {
   },
 
   methods: {
-    edificioDetails() {},
+    edificioDetails(edificio) {
+      this.$router.push('/edificioDetails/' + edificio.idedificio)
+    },
   },
   computed: {},
 };

@@ -10,9 +10,7 @@
         <v-btn color="green white--text">Criar apartamento</v-btn>
         <v-btn color="orange white--text" @click="finance()">Finanças</v-btn>
       </div>
-    </div>
-
-    <h3>Apartamentos</h3>
+    </div>  <h3>Apartamentos</h3>
     <br />
     <v-card>
       <v-card-title>
@@ -26,7 +24,7 @@
       </v-card-title>
       <v-data-table
         :headers="headers"
-        :items="desserts"
+        :items="apartamentos"
         :search="search"
       ></v-data-table>
     </v-card>
@@ -36,9 +34,13 @@
 import axios from "axios";
 export default {
   created() {
-    axios.get("http://localhost:1000/api/v1/apartamento", null).then(
+    var edificioId = this.$route.params.edificioId
+
+    console.log(edificioId)
+    
+    axios.get("http://localhost:1000/api/v1/apartamento/" + edificioId, null).then(
       (response) => {
-        this.apartamento = response.data.data;
+        this.apartamentos = response.data;
         console.log(response.data);
       },
       (error) => {
@@ -48,6 +50,7 @@ export default {
   },
   data() {
     return {
+      apartamentos: [],
       search: "",
       headers: [
         {
@@ -56,27 +59,18 @@ export default {
           filterable: false,
           value: "name",
         },
-        { text: "Contacto", value: "calories" },
+        { text: "Contacto", value: "numerofixo" },
         { text: "Propietário", value: "fat" },
-        { text: "Andar", value: "carbs" },
-        { text: "Nº Porta ", value: "protein" },
+        { text: "Andar", value: "andar" },
+        { text: "Nº Porta ", value: "numero" },
         { text: "Status", value: "iron" },
-      ],
-      desserts: [
-        {
-          name: "Eliane dos Santos",
-          calories: "+244 925 684 321",
-          fat: "Domingos Correia",
-          carbs: "2",
-          protein: "24",
-          iron: "Activado",
-        },
-      ],
+      ]
     };
   },
   methods: {
     finance() {
-      this.$router.push("finance");
+      var edificioId = this.$route.params.edificioId
+      this.$router.push("/finance/" + edificioId);
     },
   },
 };

@@ -34,12 +34,12 @@ const routes = [
     component: edificio
   },
   {
-    path: '/edificioDetails',
+    path: '/edificioDetails/:edificioId',
     name: 'Detalhesedificio',
     component: edificioDetails
   },
   {
-    path: '/finance',
+    path: '/finance/:edificioId',
     name: 'finance',
     component: finance
   },
