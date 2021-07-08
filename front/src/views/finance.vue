@@ -2,7 +2,7 @@
   <div class="finance">
     <div class="row">
       <div class="col-lg-4">
-        <v-card>
+        <v-card >
           <v-card-text>
             <p class="text-h6 green white--text">Pagamentos dos moradores</p>
           </v-card-text>
@@ -23,8 +23,7 @@
               <v-container>
                 <v-row>
                   <v-text-field
-                    v-model="payment"
-                    :rules="payRules"
+                   
                     label="valor do pagamento"
                     :counter="10"
                     required
@@ -32,14 +31,13 @@
                 </v-row>
                 <v-row>
                   <v-text-field
-                    v-model="morador"
-                    :rules="moradorRules"
+                    
                     label="nome do morador"
                   ></v-text-field>
                 </v-row>
                 <v-row>
                   <v-input
-                    v-model="newDespesa.valor"
+                    
                     type="number"
                     class="form-control"
                     id="exampleFormControlInput1"
@@ -127,34 +125,31 @@
               <v-container>
                 <v-row>
                   <v-text-field
-                    v-model="tipoDespesa"
-                    :rules="nameRules"
+                    v-model="despesa.tipodespesa"
                     label="Tipo de despesa"
                     required
                   >
-                    {{ despesa.tipodespesa }}</v-text-field
-                  >
+                </v-text-field>
                 </v-row>
                 <v-row>
                   <v-text-field
-                    v-model="valor"
+                    v-model="despesa.valor"
                     :counter="10"
-                    :rules="valorRules"
                     label="Valor da despesa"
                   ></v-text-field>
                 </v-row>
                 <v-row>
                   <v-textarea
+                    v-model="despesa.descricao"
                     label="Descreva o que pretende pagar"
                     filled
                     name="input-7-4"
                     value=""
                   >
-                    {{ despesa.descricao }}
                   </v-textarea>
 
                   <v-input
-                    v-model="newDespesa.valor"
+                    v-model="despesa.valor"
                     type="number"
                     class="form-control"
                     id="exampleFormControlInput1"
@@ -174,7 +169,7 @@
                       {{ despesa.data }}
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
-                          v-model="date"
+                          v-model="despesa.data"
                           label="Picker in menu"
                           prepend-icon="mdi-calendar"
                           readonly
@@ -182,7 +177,7 @@
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="date" no-title scrollable>
+                      <v-date-picker v-model="despesa.data" no-title scrollable>
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="menu = false">
                           Cancel
@@ -205,7 +200,7 @@
               <v-btn color="blue darken-1" text @click="dialog = false">
                 Close
               </v-btn>
-              <v-btn color="blue darken-1" text @click="dialog = false">
+              <v-btn color="blue darken-1" text @click="guardarDespesa">
                 Save
               </v-btn>
             </v-card-actions>
@@ -216,7 +211,7 @@
         <div class="despesas-table">
           <v-data-table
             :headers="cabecalho"
-            :items="expenses"
+            :items="despesas"
             :items-per-page="5"
             class="elevation-1"
           ></v-data-table>
@@ -240,22 +235,17 @@
 import axios from "axios";
 export default {
   created() {
-    var edificioId = this.$route.params.edificioId;
-
-    console.log(edificioId);
-
-    axios.get("http://localhost:1000/api/v1/despesa/" + edificioId, null).then(
-      (response) => {
-        this.despesas = response.data;
-        console.log(response.data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.getDespesas ()
   },
   data() {
     return {
+      data: null,
+      despesa: {
+        descricao: null,
+        data: null,
+        valor: null,
+        tipodespesa: null
+      },
       despesas: [],
       headers: [
         {
@@ -276,13 +266,13 @@ export default {
       ],
       cabecalho: [
         {
-          text: "tipo de despesa",
+          text: "Tipo de despesa",
           align: "start",
           sortable: false,
-          value: "name",
+          value: "tipodespesa",
         },
-        { text: "valor da despesa", value: "valorDespesa" },
-        { text: "Data ", value: "dat" },
+        { text: "valor da despesa", value: "valor" },
+        { text: "Data ", value: "data" },
       ],
       expenses: [
         {
@@ -301,7 +291,43 @@ export default {
   },
 
   methods: {
-    
+    getDespesas () {
+      var edificioId = this.$route.params.edificioId;
+
+      console.log(edificioId);
+
+      axios.get("http://localhost:1000/api/v1/despesa/" + edificioId, null).then(
+        (response) => {
+          this.despesas = response.data;
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+
+    edificioDetails() {
+     
+    },
+
+    guardarDespesa () {
+      var self = this;
+
+      axios.post("http://localhost:1000/api/v1/despesa/", this.despesa).then(
+        (response) => {
+          console.log(response)
+          self.getDespesas()
+          self.dialog = false
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+
+
+     
+    }
   },
   computed: {},
 };

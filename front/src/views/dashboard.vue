@@ -1,7 +1,7 @@
 <template>
   <div class="dasboard">
     <h1>Dashboard</h1>
-    <h2>Bem-vindo/a Alícia Pereira</h2>
+    <h2>Bem-vindo/a {{ name }}</h2>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on, attrs }">
         <v-btn color="primary" dark v-bind="attrs" v-on="on">
@@ -56,7 +56,7 @@ export default {
   data: () => ({
     dialog: false,
 
-    name: "",
+    name: JSON.parse(localStorage.getItem('user')).name,
   }),
   methods:{
     save(){
