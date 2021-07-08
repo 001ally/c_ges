@@ -22,7 +22,7 @@ const routes = [
     component: Profile
   },
 
-  
+
   {
     path: '/dashboard',
     name: 'dashboard',
@@ -38,11 +38,13 @@ const routes = [
     name: 'Detalhesedificio',
     component: edificioDetails
   },
+ 
   {
     path: '/finance/:edificioId',
     name: 'finance',
     component: finance
   },
+
 ]
 
 const router = new VueRouter({

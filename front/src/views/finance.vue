@@ -119,7 +119,11 @@
               Guardar Despesa
             </v-btn>
           </template>
-          <v-card>
+          <v-card
+          v-for="despesa in despesas"
+          :key="despesa.iddespesa"
+          >
+            
             <v-card-title>
               <span class="text-h5">Criar despesa</span>
             </v-card-title>
@@ -131,7 +135,7 @@
                     :rules="nameRules"
                     label="Tipo de despesa"
                     required
-                  ></v-text-field>
+                  > {{ despesa.tipodespesa}}</v-text-field>
                 </v-row>
                 <v-row>
                   <v-text-field
@@ -147,7 +151,7 @@
                     filled
                     name="input-7-4"
                     value=""
-                  >
+                  > {{despesa.descricao}}
                   </v-textarea>
 
                   <v-input
@@ -167,7 +171,7 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                    >
+                    > {{despesa.data}}
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           v-model="date"
@@ -233,9 +237,27 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  created() {
+    var edificioId = this.$route.params.edificioId;
+
+    console.log(edificioId);
+
+    axios.get("http://localhost:1000/api/v1/despesa/" + edificioId , null)
+      .then(
+        (response) => {
+          this.despesas = response.data;
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  },
   data() {
     return {
+      despesas: [],
       headers: [
         {
           text: "Valor Pagamento",
@@ -268,77 +290,7 @@ export default {
           name: "Elevadores",
           valorDespesa: 100000,
           dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "jardim",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "limpeza",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "segurança",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
-        {
-          name: "Elevadores",
-          valorDespesa: 100000,
-          dat: "05/06/2021",
-        },
+        }
       ],
       dialog: false,
       dialogue: false,
@@ -347,21 +299,15 @@ export default {
         .substr(0, 10),
       menu: false,
 
-      Despesas: [],
-      newDespesa: {
-        id: 0,
-        categoria: null,
-        descricao: null,
-        valor: null,
-        dat: null,
-      },
-      index: null,
+     
     };
   },
 
-  methods: {},
+  methods: {
+     
+    },
   computed: {},
-};
+  }
 </script>
 
 

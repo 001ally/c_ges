@@ -10,7 +10,8 @@
         <v-btn color="green white--text">Criar apartamento</v-btn>
         <v-btn color="orange white--text" @click="finance()">Finanças</v-btn>
       </div>
-    </div>  <h3>Apartamentos</h3>
+    </div>
+    <h3>Apartamentos</h3>
     <br />
     <v-card>
       <v-card-title>
@@ -34,19 +35,21 @@
 import axios from "axios";
 export default {
   created() {
-    var edificioId = this.$route.params.edificioId
+    var edificioId = this.$route.params.edificioId;
 
-    console.log(edificioId)
-    
-    axios.get("http://localhost:1000/api/v1/apartamento/" + edificioId, null).then(
-      (response) => {
-        this.apartamentos = response.data;
-        console.log(response.data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    console.log(edificioId);
+
+    axios
+      .get("http://localhost:1000/api/v1/apartamento/" + edificioId, null)
+      .then(
+        (response) => {
+          this.apartamentos = response.data;
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   },
   data() {
     return {
@@ -64,12 +67,12 @@ export default {
         { text: "Andar", value: "andar" },
         { text: "Nº Porta ", value: "numero" },
         { text: "Status", value: "iron" },
-      ]
+      ],
     };
   },
   methods: {
     finance() {
-      var edificioId = this.$route.params.edificioId
+      var edificioId = this.$route.params.edificioId;
       this.$router.push("/finance/" + edificioId);
     },
   },

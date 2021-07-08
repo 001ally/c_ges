@@ -17,7 +17,7 @@ router.get('/apartamento', apartamentoController.apart)
 router.post('/apartamento', apartamentoController.apart)
 router.get('/apartamento/:id', apartamentoController.getAptByIdEdificio)
 router.get('/morador', moradorController.morador)
-router.get('/despesa', despesaController.despesa)
+router.get('/despesa/:edificioId', despesaController.despesa)
 
    
 module.exports = router
