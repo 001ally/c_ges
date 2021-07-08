@@ -119,11 +119,7 @@
               Guardar Despesa
             </v-btn>
           </template>
-          <v-card
-          v-for="despesa in despesas"
-          :key="despesa.iddespesa"
-          >
-            
+          <v-card>
             <v-card-title>
               <span class="text-h5">Criar despesa</span>
             </v-card-title>
@@ -135,7 +131,9 @@
                     :rules="nameRules"
                     label="Tipo de despesa"
                     required
-                  > {{ despesa.tipodespesa}}</v-text-field>
+                  >
+                    {{ despesa.tipodespesa }}</v-text-field
+                  >
                 </v-row>
                 <v-row>
                   <v-text-field
@@ -151,7 +149,8 @@
                     filled
                     name="input-7-4"
                     value=""
-                  > {{despesa.descricao}}
+                  >
+                    {{ despesa.descricao }}
                   </v-textarea>
 
                   <v-input
@@ -171,7 +170,8 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                    > {{despesa.data}}
+                    >
+                      {{ despesa.data }}
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           v-model="date"
@@ -244,16 +244,15 @@ export default {
 
     console.log(edificioId);
 
-    axios.get("http://localhost:1000/api/v1/despesa/" + edificioId , null)
-      .then(
-        (response) => {
-          this.despesas = response.data;
-          console.log(response.data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    axios.get("http://localhost:1000/api/v1/despesa/" + edificioId, null).then(
+      (response) => {
+        this.despesas = response.data;
+        console.log(response.data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   },
   data() {
     return {
@@ -290,7 +289,7 @@ export default {
           name: "Elevadores",
           valorDespesa: 100000,
           dat: "05/06/2021",
-        }
+        },
       ],
       dialog: false,
       dialogue: false,
@@ -298,16 +297,14 @@ export default {
         .toISOString()
         .substr(0, 10),
       menu: false,
-
-     
     };
   },
 
   methods: {
-     
-    },
+    
+  },
   computed: {},
-  }
+};
 </script>
 
 

@@ -74,6 +74,7 @@ export default {
     finance() {
       var edificioId = this.$route.params.edificioId;
       this.$router.push("/finance/" + edificioId);
+      
     },
   },
 };
