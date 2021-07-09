@@ -4,6 +4,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class despesa extends Model {
+   
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -19,9 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     data: DataTypes.DATE
   }, {
     sequelize,
+    timestamps: false,
     tableName: 'despesa',
     modelName: 'despesa',
-  });
 
+  });
+  
+  despesa.removeAttribute('id')
   return despesa;
 };

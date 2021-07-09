@@ -11,13 +11,9 @@ module.exports = {
                 "numerofixo"
             ]
         })
-        // const _ap = await apartamento.create({
-        //     andar, numero,idedificio,numerofixo
-        // }) 
-
+       
         res.json(apartamentos)
     },
-
 
     async getAptByIdEdificio(req, res, params) {
 

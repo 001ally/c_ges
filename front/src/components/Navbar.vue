@@ -14,7 +14,7 @@
         <span>ges</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn @click="logOut()" text>
+      <v-btn @click="logOut" text>
         <span>Sair</span>
       </v-btn>
     </v-toolbar>

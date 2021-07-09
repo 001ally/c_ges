@@ -62,6 +62,9 @@ export default {
     save(){
       alert('Edificio cadastrado com sucesso')
       
+    },
+    logOut(){
+      
     }
   }
 };
