@@ -1,4 +1,5 @@
 const router = require('express').Router()
+
 const userControler = require('../controllers/user-controller')
 const loginController = require('../controllers/login-controller')
 const registroController = require('../controllers/registro-controller')
@@ -10,15 +11,10 @@ const despesaController = require('../controllers/despesa-controller')
 
 router.get('/user', userControler.index)
 router.post('/login', loginController.login)
-router.post('/registro',registroController.store)
+router.post('/registro', registroController.store)
 router.use('/edificio', edificioController)
+router.use('/apartamento', apartamentoController)
 
-
-//router.use('/apartamento', apartamentoController)
-router.get('/apartamento', apartamentoController.apart)
-
-router.get('/apartamento/:id', apartamentoController.getAptByIdEdificio)
-router.post('/create', apartamentoController.createApart)
 
 router.get('/morador', moradorController.morador)
 
@@ -26,7 +22,7 @@ router.get('/despesa/:edificioId', despesaController.despesa)
 //router.get('/despesa', despesaController.index)
 router.post('/despesa/create', despesaController.createExpense)
 
-   
+
 module.exports = router
 
 
