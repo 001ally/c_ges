@@ -2,8 +2,7 @@
   <div class="edificioDetails">
     <div class="top">
       <div class="topContent">
-        <b>D24-</b>
-        <b>Centralidade do kilamba</b>
+        
       </div>
       <div class="btn">
         <v-btn color="primary">Gerar apartamentos</v-btn>

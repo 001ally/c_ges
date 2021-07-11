@@ -8,50 +8,49 @@
         </v-btn>
       </template>
       <div class="body">
+        <v-card>
+          <v-card-title>
+            <span class="text-h5">Edificio</span>
+          </v-card-title>
+          <v-form ref="form">
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-file-input
+                    accept="image/png, image/jpeg, image/bmp"
+                    prepend-icon="mdi-camera"
+                    label="imagem edificio"
+                    v-model="fotografia"
+                  ></v-file-input>
 
-      <v-card>
-        <v-card-title>
-          <span class="text-h5">Edificio</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-              <v-file-input
-                accept="image/png, image/jpeg, image/bmp"
-                placeholder=""
-                prepend-icon="mdi-camera"
-                label="imagem edificio"
-                v-model="fotografia"
+                  <v-col cols="12">
+                    <v-text-field
+                      label="Nome do edificio"
+                      required
+                      v-model="nome"
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12">
+                    <v-text-field label="localização" v-model="localizacao">
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="(dialog = false), reset()"
               >
-              </v-file-input>
-              <v-text-field></v-text-field>
-
-              <v-col cols="12">
-                <v-text-field 
-                label="Nome do edificio" 
-                required
-                v-model="nome"></v-text-field>
-              </v-col>
-
-              <v-col cols="12">
-                <v-text-field 
-                label="localização"
-                v-model="localizacao"
-                > </v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">
-            Close
-          </v-btn>
-          <v-btn color="blue darken-1" text @click="save">
-            Save
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+                Close
+              </v-btn>
+              <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+            </v-card-actions>
+          </v-form>
+        </v-card>
       </div>
     </v-dialog>
     <v-divider></v-divider>
@@ -88,8 +87,12 @@
             ver mais
           </v-btn>
         </v-card-actions>
+        <v-card-actions>
+          <v-btn outlined rounded text @click="apagarEdificio(edificio)">
+            apagar edificio
+          </v-btn>
+        </v-card-actions>
       </v-card>
-      
     </div>
   </div>
 </template>
@@ -98,13 +101,14 @@ import axios from "axios";
 export default {
   created() {
     let user = localStorage.getItem("user");
+    
     this.token = localStorage.getItem("token");
 
     if (user) {
       user = JSON.parse(user);
     }
 
-    console.log(user);
+    //console.log(user);
 
     axios
       .get("http://localhost:1000/api/v1/edificio/" + user.iduser, null)
@@ -123,9 +127,11 @@ export default {
       fotografia: "",
       nome: "",
       localizacao: "",
-
+      
+      deletEd: "",
       dialog: false,
       edificios: [],
+      
     };
   },
 
@@ -155,11 +161,36 @@ export default {
             // limparr os campos do input
             this.edificios.push(response.data);
             this.edificios = "";
+            window.location.reload();
           },
           (error) => {
             console.log(error);
           }
         );
+    },
+    apagarEdificio(edificio) {
+      // axios.delete(URL, {
+      //   headers: {
+      //     Authorization: authorizationToken,
+      //   },
+      //   data: {
+      //     source: source,
+      //   },
+      // });
+      if (window.confirm("Tem certeza que quer apagar este edificio?")) {
+        axios
+          .delete(
+            "http://localhost:1000/api/v1/edificio/" + edificio.idedificio
+          )
+          .then((resp) => resp.data);
+        alert("Edificio apagado com sucesso");
+        window.location.reload();
+      }
+    },
+    reset() {
+      this.$refs.form.reset();
+
+      //inputs.forEach(input => input = '')
     },
   },
   computed: {},
@@ -167,7 +198,6 @@ export default {
 </script>
 <style scoped>
 .edificio {
-  
   margin-top: 80px;
   margin-left: 280px;
   align-items: center;
@@ -178,9 +208,9 @@ export default {
   margin: 20px;
 }
 
-* {
+/* * {
   display: flex;
   flex-wrap: wrap;
   margin: 15px;
-}
+} */
 </style>

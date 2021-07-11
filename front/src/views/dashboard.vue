@@ -11,6 +11,7 @@ export default {
     dialog: false,
 
     name: JSON.parse(localStorage.getItem('user')).name,
+     
   }),
   methods:{
    
