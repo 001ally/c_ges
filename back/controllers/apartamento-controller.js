@@ -42,6 +42,7 @@ module.exports = (function () {
     async function createApart (req, res) {
 
         const {
+            proprietario,
             andar,
             numero,
             edificio_idedificio,
@@ -49,7 +50,7 @@ module.exports = (function () {
         } = req.body
         const { apartamento } = req.db
         const apartamentos = await apartamento.create({
-            andar, numero, edificio_idedificio, numerofixo
+            proprietario, andar, numero, edificio_idedificio, numerofixo
         })
         res.json(apartamentos)
     }

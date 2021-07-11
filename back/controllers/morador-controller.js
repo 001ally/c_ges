@@ -1,5 +1,7 @@
-module.exports = {
-	async morador(req, res) {
+const router = require('express').Router()
+
+module.exports = (  function () {
+	async function getMorador(req, res) {
 		const { apartamento } = req.db
 
 		const { morador } = req.db
@@ -19,4 +21,22 @@ module.exports = {
 
 		res.json(moradores)
 	}
-}
+	async function createMorador(req,res) {
+		const {
+			nome,
+			email,
+			proprietario,
+			numerofixo
+	} = req.body
+	const { apartamento } = req.db
+	const apartamentos = await apartamento.create({
+			andar, numero, edificio_idedificio, numerofixo
+	})
+	res.json(apartamentos)
+	}
+
+
+router.get('/', getMorador)
+router.post('/', createMorador)
+return router
+})()

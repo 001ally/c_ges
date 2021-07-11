@@ -14,9 +14,12 @@ router.post('/login', loginController.login)
 router.post('/registro', registroController.store)
 router.use('/edificio', edificioController)
 router.use('/apartamento', apartamentoController)
+router.use('/morador', moradorController)
 
 
-router.get('/morador', moradorController.morador)
+// router.get('/morador', moradorController.morador)
+// router.post('/morador', moradorController.create)
+
 
 router.get('/despesa/:edificioId', despesaController.despesa)
 //router.get('/despesa', despesaController.index)
