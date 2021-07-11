@@ -1,3 +1,5 @@
+const router = require("../routes/api")
+
 module.exports = {
     async apart(req, res) {
         const { apartamento } = req.db
@@ -36,7 +38,21 @@ module.exports = {
         })
 
         res.json(apartamentos)
-    }
+    },
+    async createApart (req, res) {
+
+        const {
+            andar,
+            numero,
+            edificio_idedificio,
+            numerofixo
+        } = req.body
+        const { apartamento } = req.db
+        const apartamentos = await apartamento.create({
+            andar, numero, edificio_idedificio, numerofixo
+        })
+        res.json(apartamentos)
+    },
 }
 
 

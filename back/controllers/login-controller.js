@@ -24,7 +24,7 @@ module.exports = {
 		  .then((match) => {
               if (match) {
                 const secret = 'B18fbWIyeU1utFA31mzGaVyzjyL9ZnfP'
-                const data = { id: _user.id }
+                const data = { id: _user.iduser }
 
                 delete _user.password
 

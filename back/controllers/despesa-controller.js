@@ -31,10 +31,9 @@ module.exports = {
 			valor
 		} = req.body;
 
-
 		console.log(edificio_idedificio);
 		const { despesa } = req.db
-		//const { andar, numero, idedificio, numerofixo, } = req.body
+		
 		try {
 
 			const despesas = await db.sequelize.query(

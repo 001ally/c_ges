@@ -4,21 +4,23 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class apartamento extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+ 
     static associate(models) {
-      // define association here
+      apartamento.hasMany(models.morador, {
+        sourceKey:'idapartamentos',
+        foreignKey: 'apartamento_idapartamentos'
+      })
     }
   };
   apartamento.init({
+    edificio_idedificio: DataTypes.INTEGER,
+    idapartamentos: DataTypes.INTEGER,
     andar: DataTypes.INTEGER,
     numero: DataTypes.INTEGER,
     numerofixo: DataTypes.INTEGER
   }, {
     sequelize,
+    timestamps:false,
     tableName:'apartamento',
     modelName: 'apartamento',
   });

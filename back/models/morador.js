@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      morador.belongsTo(models.apartamento, {
+        targetKey:'idapartamentos',
+        foreignKey:'apartamento_idapartamentos'
+      })
     }
   };
   morador.init({
@@ -18,12 +22,13 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     proprietario: DataTypes.STRING,
     contacto: DataTypes.INTEGER,
-    pagamentototal: DataTypes.DOUBLE
+    pagamentototal: DataTypes.DOUBLE,
+    apartamento_idapartamentos: DataTypes.INTEGER
   }, {
     sequelize,
     tableName: 'morador',
     modelName: 'morador',
   });
-
+  morador.removeAttribute('id')
   return morador;
 };

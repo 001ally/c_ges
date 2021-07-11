@@ -11,12 +11,17 @@ const despesaController = require('../controllers/despesa-controller')
 router.get('/user', userControler.index)
 router.post('/login', loginController.login)
 router.post('/registro',registroController.store)
-router.get('/edificio/:userId', edificioController.index)
-router.post('/edificio', edificioController.index)
+router.use('/edificio', edificioController)
+
+
+//router.use('/apartamento', apartamentoController)
 router.get('/apartamento', apartamentoController.apart)
-router.post('/apartamento', apartamentoController.apart)
+
 router.get('/apartamento/:id', apartamentoController.getAptByIdEdificio)
+router.post('/create', apartamentoController.createApart)
+
 router.get('/morador', moradorController.morador)
+
 router.get('/despesa/:edificioId', despesaController.despesa)
 //router.get('/despesa', despesaController.index)
 router.post('/despesa/create', despesaController.createExpense)
