@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     contacto: DataTypes.INTEGER,
     pagamentototal: DataTypes.DOUBLE,
-    
     apartamento_idapartamentos: DataTypes.INTEGER
   }, {
     sequelize,

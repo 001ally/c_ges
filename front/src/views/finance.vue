@@ -82,7 +82,7 @@
               <v-btn color="blue darken-1" text @click="dialogue = false">
                 Close
               </v-btn>
-              <v-btn color="blue darken-1" text @click="dialogue = false">
+              <v-btn color="blue darken-1" text @click="guardarPagamento">
                 Save
               </v-btn>
             </v-card-actions>
@@ -233,10 +233,16 @@ import axios from "axios";
 export default {
   created() {
     this.getDespesas();
+    this.getPayments();
   },
   data() {
     return {
       data: null,
+      pagamento:{
+        edificio_idedificio: this.$route.params.edificioId,
+        valor: null,
+        data: null
+      },
       despesa: {
         edificio_idedificio: this.$route.params.edificioId,
         descricao: null,
@@ -294,11 +300,8 @@ export default {
     },
     getDespesas() {
       var edificioId = this.$route.params.edificioId;
-
       console.log(edificioId);
-
-      axios
-        .get("http://localhost:1000/api/v1/despesa/" + edificioId, null)
+      axios.get("http://localhost:1000/api/v1/despesa/" + edificioId, null)
         .then(
           (response) => {
             this.despesas = response.data;
@@ -309,17 +312,40 @@ export default {
           }
         );
     },
+    getPayments(){
+        var edificioId = this.$route.params.edificioId;
+      console.log(edificioId);
+      axios.get("http://localhost:1000/api/v1/pagamento/" + edificioId, null)
+        .then(
+          (response) => {
+            this.pagamento = response.data;
+            console.log(response.data);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    },
 
     edificioDetails() {},
-
+    guardarPagamento(){
+      var gt = this;  
+      axios.post(`http://localhost:1000/api/v1/pagamento`, this.pagamento)
+        .then(
+          (response) => {
+            console.log(response);
+            gt.getPayments();
+            gt.dialog = false;
+            gt.reset();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    },
     guardarDespesa() {
-      var self = this;
-      var idedificio = this.$route.params.edificioId;
-      console.log("Edificio " + idedificio);
-
-      //var edificioId = this.$route.params.edificioId;
-      axios
-        .post(`http://localhost:1000/api/v1/despesa/create `, this.despesa)
+      var self = this;  
+      axios.post(`http://localhost:1000/api/v1/despesa/create `, this.despesa)
         .then(
           (response) => {
             console.log(response);

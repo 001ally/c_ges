@@ -21,6 +21,7 @@
   </v-app-bar>
 </template>
 <script>
+import axios from "axios";
 export default {
   name: "dashboard",
 
@@ -32,8 +33,18 @@ export default {
 
   methods: {
     logOut() {
-      this.$router.push("/");
-      location.reload()
+       axios.get("http://localhost:1000/api/v1/logout" , null)
+      .then(
+        (response) => {
+          this.edificios = response.data;
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      // this.$router.push("/");
+      // location.reload()
     },
   },
 };

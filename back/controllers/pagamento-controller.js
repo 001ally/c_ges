@@ -14,7 +14,11 @@ const router = require('express').Router()
         res.json(pagamento)
       } 
       async function createPay (req, res){
-        const { valor, data, morador_idmorador } = req.body
+        const { 
+          valor, 
+          data, 
+          morador_idmorador 
+        } = req.body
         const { pagamentos } = req.db
         const pagamento = await pagamentos.create({
                 valor,

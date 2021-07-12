@@ -61,6 +61,9 @@ module.exports = {
 	
 			res.json(despesas)
 
+			
+			
+
 		} catch (error) {
 			console.error(error)
 		}

@@ -8,10 +8,12 @@ const apartamentoController = require('../controllers/apartamento-controller')
 const moradorController = require('../controllers/morador-controller')
 const pagamentoController = require('../controllers/pagamento-controller')
 const despesaController = require('../controllers/despesa-controller')
+const logoutController= require('../controllers/logout-controller')
 
 router.get('/user', userControler.index)
 router.post('/login', loginController.login)
 router.post('/registro', registroController.store)
+router.get('/logout', logoutController)
 
 router.use('/edificio', edificioController)
 router.use('/apartamento', apartamentoController)
