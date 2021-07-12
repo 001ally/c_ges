@@ -128,7 +128,7 @@ export default {
       nome: "",
       localizacao: "",
       
-      deletEd: "",
+      
       dialog: false,
       edificios: [],
       

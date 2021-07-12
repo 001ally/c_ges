@@ -33,6 +33,7 @@ export default {
   methods: {
     logOut() {
       this.$router.push("/");
+      location.reload()
     },
   },
 };

@@ -3,7 +3,6 @@ const router = require('express').Router()
 
 module.exports = (function () {
 
-
 	async function byId(req, res) {
 		let result = []
 		const { edificio } = req.db

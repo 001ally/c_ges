@@ -1,7 +1,26 @@
 const { Sequelize } = require('../models/index');
 const db = require('../models/index');
+const { index } = require('./user-controller');
 
 module.exports = {
+	async index(req, res) {
+		const { despesa } = req.db
+		const { edificioId } = req.params;
+
+	
+		const despesas = await despesa.findAll({
+			//where: { edificio_idedificio: edificioId },
+			attributes: [
+				"iddespesa",
+				"tipodespesa",
+				"descricao",
+				"data",
+				"edificio_idedificio",
+				"valor"
+			]
+		})
+		res.json(despesas)
+	},
 	async despesa(req, res, params) {
 		const { despesa } = req.db
 		const { edificioId } = req.params;

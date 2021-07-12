@@ -8,13 +8,20 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       edificio.belongsTo(models.user, {targetKey:'iduser', foreignKey: 'user_iduser'})
       // define association here
+      edificio.hasMany(models.despesa,
+        { sourceKey:'idedificio', foreignKey:'edificio_idedificio' })
+
+      edificio.hasMany(models.apartamento,
+          { sourceKey:'idedificio', foreignKey:'edificio_idedificio' })
     }
   };
   edificio.init({
+    idedificio: DataTypes.INTEGER,
     nome: DataTypes.STRING,
     fotografia: DataTypes.STRING,
     localizacao: DataTypes.STRING,
-    user_iduser: DataTypes.INTEGER
+    user_iduser: DataTypes.INTEGER,
+   
   }, {
     sequelize,
     timestamps:false,

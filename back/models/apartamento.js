@@ -10,15 +10,19 @@ module.exports = (sequelize, DataTypes) => {
         sourceKey:'idapartamentos',
         foreignKey: 'apartamento_idapartamentos'
       })
+      apartamento.belongsTo(models.edificio,{targetKey:'idedificio', foreignKey:'edificio_idedificio'})
     }
   };
   apartamento.init({
-    edificio_idedificio: DataTypes.INTEGER,
+    
     idapartamentos: DataTypes.INTEGER,
+    proprietario: DataTypes.STRING,
     andar: DataTypes.INTEGER,
     numero: DataTypes.INTEGER,
-    numerofixo: DataTypes.INTEGER
-  }, {
+    numerofixo: DataTypes.INTEGER,
+    edificio_idedificio: DataTypes.INTEGER
+  },
+  { 
     sequelize,
     timestamps:false,
     tableName:'apartamento',

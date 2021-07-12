@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   morador.init({
     nome: DataTypes.STRING,
     email: DataTypes.STRING,
-    proprietario: DataTypes.STRING,
+    //proprietario: DataTypes.STRING,
     contacto: DataTypes.INTEGER,
     pagamentototal: DataTypes.DOUBLE,
     apartamento_idapartamentos: DataTypes.INTEGER

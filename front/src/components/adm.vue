@@ -140,6 +140,8 @@ export default {
     Registrar() {
      registro(this.name, this.email, this.password).then(res =>{
        console.log(res.data);
+       alert('usuario cadastrado com sucesso')
+       location.reload()
      })
     },
     Acessar(){

@@ -20,6 +20,7 @@ module.exports = {
       password: {
         type: Sequelize.STRING,
         allowNull: false,
+        select: false
       },
       createdAt: {
         allowNull: false,

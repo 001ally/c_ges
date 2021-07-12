@@ -2,7 +2,7 @@
   <div class="finance">
     <div class="row">
       <div class="col-lg-4">
-        <v-card >
+        <v-card>
           <v-card-text>
             <p class="text-h6 green white--text">Pagamentos dos moradores</p>
           </v-card-text>
@@ -23,21 +23,16 @@
               <v-container>
                 <v-row>
                   <v-text-field
-                   
                     label="valor do pagamento"
                     :counter="10"
                     required
                   ></v-text-field>
                 </v-row>
                 <v-row>
-                  <v-text-field
-                    
-                    label="nome do morador"
-                  ></v-text-field>
+                  <v-text-field label="nome do morador"></v-text-field>
                 </v-row>
                 <v-row>
                   <v-input
-                    
                     type="number"
                     class="form-control"
                     id="exampleFormControlInput1"
@@ -129,7 +124,7 @@
                     label="Tipo de despesa"
                     required
                   >
-                </v-text-field>
+                  </v-text-field>
                 </v-row>
                 <v-row>
                   <v-text-field
@@ -235,7 +230,7 @@
 import axios from "axios";
 export default {
   created() {
-    this.getDespesas ()
+    this.getDespesas();
   },
   data() {
     return {
@@ -244,7 +239,7 @@ export default {
         descricao: null,
         data: null,
         valor: null,
-        tipodespesa: null
+        tipodespesa: null,
       },
       despesas: [],
       headers: [
@@ -291,43 +286,45 @@ export default {
   },
 
   methods: {
-    getDespesas () {
+    getDespesas() {
       var edificioId = this.$route.params.edificioId;
 
       console.log(edificioId);
 
-      axios.get("http://localhost:1000/api/v1/despesa/" + edificioId, null).then(
-        (response) => {
-          this.despesas = response.data;
-          console.log(response.data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      axios
+        .get("http://localhost:1000/api/v1/despesa/" + edificioId, null)
+        .then(
+          (response) => {
+            this.despesas = response.data;
+            console.log(response.data);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
     },
 
-    edificioDetails() {
-     
-    },
+    edificioDetails() {},
 
-    guardarDespesa () {
+    guardarDespesa() {
       var self = this;
+      var idedificio = this.$route.params.edificioId;
+      console.log("Edificio " + idedificio);
 
-      axios.post("http://localhost:1000/api/v1/despesa/", this.despesa).then(
-        (response) => {
-          console.log(response)
-          self.getDespesas()
-          self.dialog = false
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-
-
-     
-    }
+      //var edificioId = this.$route.params.edificioId;
+      axios
+        .post(`http://localhost:1000/api/v1/despesa/create `, this.despesa)
+        .then(
+          (response) => {
+            console.log(response);
+            self.getDespesas();
+            self.dialog = false;
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    },
   },
   computed: {},
 };

@@ -11,7 +11,6 @@ module.exports = (  function () {
 				"idmorador",
 				"nome",
 				"email",
-				"proprietario",
 				"contacto",
 				"pagamentototal",
 				"apartamento_idapartamentos"
@@ -25,7 +24,6 @@ module.exports = (  function () {
 		const {
 			nome,
 			email,
-			proprietario,
 			numerofixo
 	} = req.body
 	const { apartamento } = req.db

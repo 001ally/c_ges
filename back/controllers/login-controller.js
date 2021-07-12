@@ -26,7 +26,7 @@ module.exports = {
                 const secret = 'B18fbWIyeU1utFA31mzGaVyzjyL9ZnfP'
                 const data = { id: _user.iduser }
 
-				delete _user.password
+				delete  _user.password
                  _user.password = ''
 
                 const authToken = jwt.sign(data, secret)
