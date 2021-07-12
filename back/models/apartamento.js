@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   apartamento.init({
-    
     idapartamentos: DataTypes.INTEGER,
     proprietario: DataTypes.STRING,
     andar: DataTypes.INTEGER,
