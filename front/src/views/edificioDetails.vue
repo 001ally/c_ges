@@ -115,12 +115,12 @@ export default {
   },
   data() {
     return {
-      apartamento:{
+      apartamento: {
         edificio_idedificio: this.$route.params.edificioId,
-        proprietario:null,
-        andar:null,
-        numero:null,
-        numerofixo: null, 
+        proprietario: null,
+        andar: null,
+        numero: null,
+        numerofixo: null,
       },
       dialog: false,
       apartamentos: [],
@@ -140,25 +140,22 @@ export default {
     };
   },
   methods: {
-      reset() {
+    reset() {
       this.$refs.form.reset();
-
-      //inputs.forEach(input => input = '')
     },
     finance() {
       var edificioId = this.$route.params.edificioId;
       this.$router.push("/finance/" + edificioId);
     },
     save() {
-     
-    axios.post(`http://localhost:1000/api/v1/apartamento `, 
-    {
-        edificio_idedificio: this.$route.params.edificioId,
-        proprietario : this.apartamento.proprietario,
-        andar : this.apartamento.andar,
-        numero : this.apartamento.numero,
-        numerofixo : this.apartamento.numerofixo 
-      })
+      axios
+        .post(`http://localhost:1000/api/v1/apartamento `, {
+          edificio_idedificio: this.$route.params.edificioId,
+          proprietario: this.apartamento.proprietario,
+          andar: this.apartamento.andar,
+          numero: this.apartamento.numero,
+          numerofixo: this.apartamento.numerofixo,
+        })
         .then(
           (response) => {
             console.log(response);
@@ -168,11 +165,11 @@ export default {
           },
           (error) => {
             console.log(error);
-          },
-        );
-    }}
-   
           }
+        );
+    },
+  },
+};
 </script>
 <style>
 .edificioDetails {

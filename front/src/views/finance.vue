@@ -116,6 +116,7 @@
             <v-card-title>
               <span class="text-h5">Criar despesa</span>
             </v-card-title>
+            <v-form ref="form">
             <v-card-text>
               <v-container>
                 <v-row>
@@ -190,9 +191,10 @@
                 </v-row>
               </v-container>
             </v-card-text>
+            </v-form>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialog = false">
+              <v-btn color="blue darken-1" text @click="dialog = false, reset()">
                 Close
               </v-btn>
               <v-btn color="blue darken-1" text @click="guardarDespesa">
@@ -236,6 +238,7 @@ export default {
     return {
       data: null,
       despesa: {
+        edificio_idedificio: this.$route.params.edificioId,
         descricao: null,
         data: null,
         valor: null,
@@ -286,6 +289,9 @@ export default {
   },
 
   methods: {
+     reset() {
+      this.$refs.form.reset();
+    },
     getDespesas() {
       var edificioId = this.$route.params.edificioId;
 
@@ -319,6 +325,7 @@ export default {
             console.log(response);
             self.getDespesas();
             self.dialog = false;
+            self.reset();
           },
           (error) => {
             console.log(error);
