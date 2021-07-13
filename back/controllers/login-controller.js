@@ -19,6 +19,7 @@ module.exports = {
 		if (!_user ) {
 			return res.status(404).json({message: 'usuario não encontrado'})
 		}
+		console.log(password,_user.password, );
 		console.log(await bcrypt.hash(password,10))
 		bcrypt.compare(password, _user.password)
 		  .then((match) => {

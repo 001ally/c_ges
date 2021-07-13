@@ -11,11 +11,12 @@ const despesaController = require('../controllers/despesa-controller')
 const logoutController= require('../controllers/logout-controller')
 const { route } = require('../controllers/apartamento-controller')
 
-router.get('/user', userControler.index)
+
 router.post('/login', loginController.login)
 router.post('/registro', registroController.store)
 router.get('/logout', logoutController)
 
+router.use('/user', userControler )
 router.use('/edificio', edificioController)
 router.use('/apartamento', apartamentoController)
 router.use('/morador', moradorController)
