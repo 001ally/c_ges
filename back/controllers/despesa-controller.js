@@ -2,12 +2,13 @@ const { Sequelize } = require('../models/index');
 const db = require('../models/index');
 const { index } = require('./user-controller');
 
-module.exports = {
-	async index(req, res) {
+const router = require('express').Router()
+
+module.exports = (function () {
+	async function index(req, res) {
 		const { despesa } = req.db
 		const { edificioId } = req.params;
 
-	
 		const despesas = await despesa.findAll({
 			//where: { edificio_idedificio: edificioId },
 			attributes: [
@@ -20,8 +21,8 @@ module.exports = {
 			]
 		})
 		res.json(despesas)
-	},
-	async despesa(req, res, params) {
+	}
+	async function despesa(req, res, params) {
 		const { despesa } = req.db
 		const { edificioId } = req.params;
 
@@ -39,8 +40,8 @@ module.exports = {
 			]
 		})
 		res.json(despesas)
-	},
-	async createExpense(req, res, params) {
+	}
+	async function createExpense(req, res, params) {
 
 		const {
 			tipodespesa,
@@ -52,17 +53,17 @@ module.exports = {
 
 		console.log(edificio_idedificio);
 		const { despesa } = req.db
-		
+
 		try {
 
 			const despesas = await db.sequelize.query(
 				"INSERT INTO `c_ges`.`despesa`(`tipodespesa`,`descricao`,`data`,`edificio_idedificio`,`valor`) VALUES (?, ?, ?, ?, ?);",
-			{ type: Sequelize.QueryTypes.INSERT , replacements: [tipodespesa, descricao, data, edificio_idedificio, valor ] });
-	
+				{ type: Sequelize.QueryTypes.INSERT, replacements: [tipodespesa, descricao, data, edificio_idedificio, valor] });
+
 			res.json(despesas)
 
-			
-			
+
+
 
 		} catch (error) {
 			console.error(error)
@@ -70,6 +71,47 @@ module.exports = {
 
 
 	}
+	async function editExpense(req, res) {
 
-}
+		const {
+			iddespesa,
+			tipodespesa,
+			descricao,
+			data,
+			edificio_idedificio,
+			valor
+		} = req.body;
+
+		const { despesa } = req.db
+		const despesas = await despesa.findOne({
+			where: { iddespesa }
+		})
+			despesas.tipodespesa = tipodespesa
+			despesas.descricao = descricao,
+			despesas.data = data,
+			despesas.edificio_idedificio = edificio_idedificio,
+			despesas.valor = valor
+		await despesas.save()
+
+		res.json(despesas)
+	}
+	async function apagarExpense(req, res) {
+		const { id } = req.params
+		const { despesa } = req.db
+
+		const despesas = await despesa.destroy({
+			where: { iddespesa: id }
+		})
+
+		res.json(despesas)
+	}
+
+	router.get('/:edificioId', despesa)
+	router.get('/', index)
+	router.post('/', createExpense)
+	router.put('/', editExpense)
+	router.delete('/:id', apagarExpense)
+	return router
+})()
+
 

@@ -85,11 +85,10 @@
           hide-details
         ></v-text-field>
       </v-card-title>
-      <v-data-table
-        :headers="headers"
-        :items="apartamentos"
-        :search="search"
-      ></v-data-table>
+
+      <v-data-table :headers="headers" :items="apartamentos" :search="search">
+				
+      </v-data-table>
     </v-card>
   </div>
 </template>

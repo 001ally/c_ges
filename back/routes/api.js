@@ -9,6 +9,7 @@ const moradorController = require('../controllers/morador-controller')
 const pagamentoController = require('../controllers/pagamento-controller')
 const despesaController = require('../controllers/despesa-controller')
 const logoutController= require('../controllers/logout-controller')
+const { route } = require('../controllers/apartamento-controller')
 
 router.get('/user', userControler.index)
 router.post('/login', loginController.login)
@@ -19,12 +20,9 @@ router.use('/edificio', edificioController)
 router.use('/apartamento', apartamentoController)
 router.use('/morador', moradorController)
 router.use('/pagamento', pagamentoController)
+router.use('/despesa', despesaController)
 
-//router.get('/payments', pagamentoController.pagamento)
 
-router.get('/despesa/:edificioId', despesaController.despesa)
-router.get('/despesa', despesaController.index)
-router.post('/despesa/create', despesaController.createExpense)
 
 
 module.exports = router
