@@ -62,10 +62,20 @@ module.exports = (function () {
 
 		res.json(moradores)
 	}
+	async function apagarMorador(req, res) {
+		const { id } = req.params
+		const { morador } = req.db
 
+		const moradores = await morador.destroy({
+			where: { idmorador: id }
+		})
+
+		res.json(moradores)
+	}
 
 	router.get('/', getMorador)
 	router.post('/', createMorador)
 	router.put('/', editMorador)
+	router.delete('/:id', apagarMorador)
 	return router
 })()

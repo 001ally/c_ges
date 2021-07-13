@@ -14,11 +14,10 @@ module.exports = (sequelize, DataTypes) => {
   };
   pagamentos.init({
     idpagamentos: DataTypes.INTEGER,
-    idmorador: DataTypes.INTEGER,
     data: DataTypes.STRING,
     valor: DataTypes.DOUBLE,
-    nome: DataTypes.STRING,
-    morador_idmorador: DataTypes.INTEGER
+    morador_idmorador: DataTypes.INTEGER,
+    
   }, {
     sequelize,
     timestamps: false,
