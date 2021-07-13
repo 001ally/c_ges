@@ -56,7 +56,7 @@
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="(dialog = false), reset()"
+                    @click="(dialog = false), reset"
                   >
                     Close
                   </v-btn>
@@ -87,7 +87,8 @@
       </v-card-title>
 
       <v-data-table :headers="headers" :items="apartamentos" :search="search">
-        <template v-slot:item.actions="{ item }">
+       
+        <template v-slot:item.actions="{ item }"> 
           <v-icon
             small
             @click="adicionarPagamento(item)">
@@ -97,11 +98,11 @@
       </v-data-table>
     </v-card>
     <v-dialog v-model="dialogue" persistent max-width="600px">
-      <template v-slot:activator="{ on, attrs }">
+      <!-- <template v-slot:activator="{ on, attrs }">
         <v-btn small v-bind="attrs" v-on="on" class="btn-pay">
           Adicionar pagamento
         </v-btn>
-      </template>
+      </template> -->
       <v-card>
         <v-card-title>
           <span class="text-h5">Payment</span>
@@ -239,7 +240,7 @@ export default {
       this.apartamentoPagamento = apartamento
       this.pagamento = {
         //edificio_idedificio: this.$route.params.edificioId,
-        
+
         nome:apartamento.proprietario,
         valor: null,
         data: null,
@@ -251,7 +252,7 @@ export default {
       axios.post(`http://localhost:1000/api/v1/pagamento`).then(
         (response) => {
           console.log(response);
-          gt.getPayments();
+          //gt.getPayments();
           gt.dialog = false;
           gt.reset();
         },

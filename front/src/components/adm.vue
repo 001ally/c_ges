@@ -27,7 +27,9 @@
         <v-col cols="4">
           <v-tabs-items v-model="tabsForm" cols="3">
             <v-tab-item key="register">
-              <v-form class="text-center grey lighten-3">
+              <v-form class="text-center grey lighten-3"
+             
+              v-if="name == ''">
                 <v-text-field
                   v-model="name"
                   label="Name"
@@ -141,7 +143,9 @@ export default {
       // if (this.name == ''){
       //   alert('preencha os campos vazios')
       // }
-      
+      if (!this.name == '' ) {
+        console.error('erro')
+      }
      registro(this.name, this.email, this.password).then(res =>{
        console.log(res.data);
        alert('usuario cadastrado com sucesso')

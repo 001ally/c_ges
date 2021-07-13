@@ -1,7 +1,7 @@
 <template>
   <div class="finance">
     <div class="row">
-      <div class="col-lg-4">
+      <!-- <div class="col-lg-4">
         <v-card>
           <v-card-text>
             <p class="text-h6 green white--text">Pagamentos dos moradores</p>
@@ -88,21 +88,15 @@
         <br />
         <v-data-table
           :headers="headers"
-          :items="desserts"
+          :items="despesas"
           :items-per-page="5"
           class="elevation-1"
         >
-         <template v-slot:item.actions="{ item }">
-          <v-icon
-            small
-            @click="adicionarPagamento(item)">
-            mdi-pencil
-          </v-icon>
-        </template>
+       
         </v-data-table>
-      </div>
+      </div> -->
 
-      <div class="col-lg-5">
+      <!-- <div class="col-lg-5">
         <v-card>
           <v-card-text>
             <p class="text-h6 red white--text">Despesas</p></v-card-text
@@ -226,16 +220,16 @@
           ></v-data-table>
         </div>
       </div>
-      <br />
+      <br /> -->
 
-      <div class="col-lg-3">
+      <!-- <div class="col-lg-3">
         <v-card>
           <v-card-text>
             <p class="text-h6 blue white--text">Saldo disponivel</p>
           </v-card-text>
           <p class="text-h5 blue--text">500.000 AKZ</p>
         </v-card>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -352,9 +346,9 @@ export default {
       axios.post(`http://localhost:1000/api/v1/pagamento`).then(
         (response) => {
           console.log(response);
-          gt.getPayments();
+         // gt.getPayments();
           gt.dialog = false;
-          gt.reset();
+          //gt.reset();
         },
         (error) => {
           console.log(error);
@@ -364,7 +358,7 @@ export default {
     guardarDespesa() {
       var self = this;
       axios
-        .post(`http://localhost:1000/api/v1/despesa/create `, this.despesa)
+        .post(`http://localhost:1000/api/v1/despesa `, this.despesa)
         .then(
           (response) => {
             console.log(response);
