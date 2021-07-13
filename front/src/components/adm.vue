@@ -112,11 +112,11 @@ export default {
     nameRules: [
       (value) => !!value || "O nome é obrigatório",
       (value) =>
-        (value && value.length >= 3) ||
-        "O nome deve ter no mínimo 3 caracteres",
+        (value && value.length >= 10) ||
+        "O nome deve ter no mínimo 10 caracteres",
       (value) =>
-        (value && value.length <= 10) ||
-        "O nome deve ter menos do que 10 caracteres",
+        (value && value.length <= 20) ||
+        "O nome deve ter menos do que 20 caracteres",
     ],
     emailRules: [
       (value) => !!value || "O e-mail é obrigatório",
@@ -138,16 +138,17 @@ export default {
   }),
   methods: {
     Registrar() {
+      // if (this.name == ''){
+      //   alert('preencha os campos vazios')
+      // }
+      
      registro(this.name, this.email, this.password).then(res =>{
        console.log(res.data);
        alert('usuario cadastrado com sucesso')
        location.reload()
      })
     },
-    Acessar(){
-     // this.$router.push({name: 'Navbar'})
-    //  this.$router.push({name: 'dashboard'})
-     
+    Acessar(){ 
      login(this.email,this.password).then((response) =>{
        console.log(response.data)
 

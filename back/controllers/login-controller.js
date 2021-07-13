@@ -6,7 +6,12 @@ module.exports = {
 	async login(req, res) {
 	
 		const { user } = req.db
-		const { email, password } = req.body
+		const { email, password }= req.body
+		// validate(req.body,{
+		// 	email: 'required',
+		// 	password: 'required'
+		// })
+		
 		const _user = await user.findOne({
 			where: { email },
 			attributes: [

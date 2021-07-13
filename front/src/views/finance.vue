@@ -315,7 +315,7 @@ export default {
     getPayments(){
         var edificioId = this.$route.params.edificioId;
       console.log(edificioId);
-      axios.get("http://localhost:1000/api/v1/pagamento/" + edificioId, null)
+      axios.get("http://localhost:1000/api/v1/pagamento/:idedificio/:idmorador'" , null)
         .then(
           (response) => {
             this.pagamento = response.data;
