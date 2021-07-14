@@ -1,7 +1,7 @@
 <template>
   <div class="finance">
     <div class="row">
-      <!-- <div class="col-lg-4">
+      <div class="col-lg-4">
         <v-card>
           <v-card-text>
             <p class="text-h6 green white--text">Pagamentos dos moradores</p>
@@ -9,7 +9,7 @@
           <p class="text-h5 green--text">500.000 AKZ</p>
         </v-card>
         <br />
-        <v-dialog v-model="dialogue" persistent max-width="600px">
+        <!-- <v-dialog v-model="dialogue" persistent max-width="600px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn dark v-bind="attrs" v-on="on" class="btn-pay">
               Adicionar pagamento
@@ -30,12 +30,13 @@
                   ></v-text-field>
                 </v-row>
                 <v-row>
-                  <v-text-field label="nome do morador"
-                  v-model="pagamento.nome"
+                  <v-text-field
+                    label="nome do morador"
+                    v-model="pagamento.nome"
                   ></v-text-field>
                 </v-row>
                 <v-row>
-                   <v-col cols="12">
+                  <v-col cols="12">
                     <v-menu
                       ref="menu"
                       v-model="menu"
@@ -44,7 +45,8 @@
                       transition="scale-transition"
                       offset-y
                       min-width="auto"
-                    > {{pagamento.data}}
+                    >
+                      {{ pagamento.data }}
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                           v-model="pagamento.data"
@@ -55,7 +57,11 @@
                           v-on="on"
                         ></v-text-field>
                       </template>
-                      <v-date-picker v-model="pagamento.data" no-title scrollable>
+                      <v-date-picker
+                        v-model="pagamento.data"
+                        no-title
+                        scrollable
+                      >
                         <v-spacer></v-spacer>
                         <v-btn text color="primary" @click="menu = false">
                           Cancel
@@ -83,20 +89,19 @@
               </v-btn>
             </v-card-actions>
           </v-card>
-        </v-dialog>
+        </v-dialog> -->
         <br />
         <br />
         <v-data-table
-          :headers="headers"
-          :items="despesas"
+          :headers="headersPagamentos"
+          :items="pagamentos"
           :items-per-page="5"
           class="elevation-1"
         >
-       
         </v-data-table>
-      </div> -->
+      </div>
 
-      <!-- <div class="col-lg-5">
+      <div class="col-lg-5">
         <v-card>
           <v-card-text>
             <p class="text-h6 red white--text">Despesas</p></v-card-text
@@ -220,16 +225,16 @@
           ></v-data-table>
         </div>
       </div>
-      <br /> -->
+      <br />
 
-      <!-- <div class="col-lg-3">
+      <div class="col-lg-3">
         <v-card>
           <v-card-text>
             <p class="text-h6 blue white--text">Saldo disponivel</p>
           </v-card-text>
           <p class="text-h5 blue--text">500.000 AKZ</p>
         </v-card>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -246,7 +251,7 @@ export default {
       data: null,
       pagamento: {
         //edificio_idedificio: this.$route.params.edificioId,
-        nome:null,
+        nome: null,
         valor: null,
         data: null,
       },
@@ -267,6 +272,16 @@ export default {
           value: "valor",
         },
         { text: "Nome do morador", value: "nome" },
+        { text: "Data pagamento", value: "data" },
+      ],
+      headersPagamentos: [
+        {
+          text: "Valor Pagamento",
+          align: "start",
+          sortable: false,
+          value: "valor",
+        },
+        { text: "Nome do morador", value: "morador" },
         { text: "Data pagamento", value: "data" },
       ],
       desserts: [
@@ -322,16 +337,17 @@ export default {
         );
     },
     getPayments() {
-      var edificioId = this.$route.params.idedificio;
+      console.log(this.$route.params)
+      var edificioId = this.$route.params.edificioId;
       console.log(edificioId);
       axios
         .get(
-          "http://localhost:1000/api/v1/pagamento/:idedificio/:idmorador" ,
+          "http://localhost:1000/api/v1/pagamento/" + edificioId,
           null
         )
         .then(
           (response) => {
-            this.pagamento = response.data;
+            this.pagamentos = response.data;
             console.log(response.data);
           },
           (error) => {
@@ -346,7 +362,7 @@ export default {
       axios.post(`http://localhost:1000/api/v1/pagamento`).then(
         (response) => {
           console.log(response);
-         // gt.getPayments();
+          // gt.getPayments();
           gt.dialog = false;
           //gt.reset();
         },
@@ -357,19 +373,17 @@ export default {
     },
     guardarDespesa() {
       var self = this;
-      axios
-        .post(`http://localhost:1000/api/v1/despesa `, this.despesa)
-        .then(
-          (response) => {
-            console.log(response);
-            self.getDespesas();
-            self.dialog = false;
-            self.reset();
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
+      axios.post(`http://localhost:1000/api/v1/despesa `, this.despesa).then(
+        (response) => {
+          console.log(response);
+          self.getDespesas();
+          self.dialog = false;
+          self.reset();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
   },
   computed: {},
@@ -403,5 +417,4 @@ a {
 .v-btn:not(.v-btn--round).v-size--default {
   margin-left: 125px;
 }
-
 </style>

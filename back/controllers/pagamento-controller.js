@@ -6,18 +6,17 @@ module.exports = (function () {
   async function showPayments(req, res) {
 
     const {
-      idedificio,
-      idmorador
+      idedificio
     } = req.params;
     try {
 
       const pagamentos = await db.sequelize.query(
-        "SELECT edf.idedificio, edf.nome AS edificio, apt.idapartamentos, apt.numero AS apt_numero, apt.andar AS apt_andar, morador.idmorador, morador.nome AS morador, pay.idpagamentos, pay.valor, pay.data FROM c_ges.pagamentos AS pay INNER JOIN c_ges.morador ON (pay.morador_idmorador = morador.idmorador) INNER JOIN c_ges.apartamento AS apt ON (morador.apartamento_idapartamentos = apt.idapartamentos) INNER JOIN c_ges.edificio AS edf ON (apt.edificio_idedificio = edf.idedificio) WHERE apt.edificio_idedificio = ? AND morador.idmorador = ?",
+        "SELECT * from pagamentos WHERE idedificio = ?",
         {
           logging: console.log,
           plain: false,
           raw: true,
-          type: Sequelize.QueryTypes.SELECT, replacements: [idedificio, idmorador ] 
+          type: Sequelize.QueryTypes.SELECT, replacements: [idedificio] 
         });
 
 
@@ -30,31 +29,22 @@ module.exports = (function () {
   }
 
   async function createPay(req, res) {
-    const {valor, data,morador_idmorador,idedificio,idmorador} = req.body
+    const {morador, valor, data, idedificio } = req.body
     const { pagamentos } = req.db
     
     try {
-      const pagamento = await db.sequelize.query(
-        "SELECT edf.idedificio, edf.nome AS edificio, apt.idapartamentos, apt.numero AS apt_numero, apt.andar AS apt_andar, morador.idmorador, morador.nome AS morador, pay.idpagamentos, pay.valor, pay.data FROM c_ges.pagamentos AS pay INNER JOIN c_ges.morador ON (pay.morador_idmorador = morador.idmorador) INNER JOIN c_ges.apartamento AS apt ON (morador.apartamento_idapartamentos = apt.idapartamentos) INNER JOIN c_ges.edificio AS edf ON (apt.edificio_idedificio = edf.idedificio) WHERE apt.edificio_idedificio = ? AND morador.idmorador = ?",
-        {
-          logging: console.log,
-          plain: false,
-          raw: true,
-          type: Sequelize.QueryTypes.INSERT, replacements: [valor, data,  idedificio, idmorador ] 
-        });
-      
-    // const pagamento = await pagamentos.create({
-    //   valor,
-    //   data,
-    //   morador_idmorador
+      const pagamentos = await db.sequelize.query(
+				"INSERT INTO `c_ges`.`pagamentos`(`valor`,`data`,`morador`,`idedificio`) VALUES (?, ?, ?, ?);",
+				{ type: Sequelize.QueryTypes.INSERT, replacements: [valor, data, morador, idedificio] });
 
-    // })
-    res.json(pagamento)}
+			res.json(pagamentos)
+    }
     catch (error) {
       console.error(error)
     }
 
   }
+  
   async function editPagamento(req, res) {
     const {
       idpagamentos,
@@ -85,7 +75,7 @@ module.exports = (function () {
     res.json(pagamento)
   }
 
-  router.get('/:idedificio/:idmorador', showPayments)
+  router.get('/:idedificio', showPayments)
   router.post('/', createPay)
   router.put('/', editPagamento)
   router.delete('/:id', apagarPagamento)

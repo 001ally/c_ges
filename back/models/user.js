@@ -12,9 +12,26 @@ module.exports = (sequelize, DataTypes) => {
   };
   user.init({
     iduser: DataTypes.INTEGER,
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
+
+    name: {
+     type: DataTypes.STRING,
+     allowNull: false,
+     validate:{  customValidator(value) {
+      if (value === null ) {
+        throw new Error("name can't be null ");
+      }
+    }}
+    } ,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{notNull:{msg:'campo email vazio'}}
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{notNull:{msg:'campo psw vazio'}}
+    } 
   }, {
     sequelize,
     tableName: 'user',

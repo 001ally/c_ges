@@ -249,7 +249,13 @@ export default {
     },
     guardarPagamento() {
       var gt = this;
-      axios.post(`http://localhost:1000/api/v1/pagamento`).then(
+      let data = {
+        morador: this.pagamento.nome,
+        valor: this.pagamento.valor,
+        data: this.pagamento.data,
+        idedificio: this.$route.params.edificioId
+      }
+      axios.post(`http://localhost:1000/api/v1/pagamento`, data).then(
         (response) => {
           console.log(response);
           //gt.getPayments();

@@ -14,7 +14,7 @@ const { route } = require('../controllers/apartamento-controller')
 
 router.post('/login', loginController.login)
 router.post('/registro', registroController.store)
-router.get('/logout', logoutController)
+router.use('/logout', logoutController)
 
 router.use('/user', userControler )
 router.use('/edificio', edificioController)

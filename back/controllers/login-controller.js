@@ -1,17 +1,17 @@
+require("dotenv").config();
+
 const { validate } = require('indicative/validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+//const { json } = require('sequelize/types')
 
 module.exports = {
-	async login(req, res) {
 	
+	async login(req, res, next) {
+		const {iduser} = req.db
 		const { user } = req.db
 		const { email, password }= req.body
-		// validate(req.body,{
-		// 	email: 'required',
-		// 	password: 'required'
-		// })
-		
+	
 		const _user = await user.findOne({
 			where: { email },
 			attributes: [
@@ -24,14 +24,18 @@ module.exports = {
 		if (!_user ) {
 			return res.status(404).json({message: 'usuario não encontrado'})
 		}
-		console.log(password,_user.password, );
-		console.log(await bcrypt.hash(password,10))
+		
+		// const token = json.sign({iduser}, process.env.SECRET, {
+		// 	expiresIn: 300 // expires in 5min
+		// })
+		// return res.json({auth:true, token: token})
 		bcrypt.compare(password, _user.password)
 		  .then((match) => {
               if (match) {
                 const secret = 'B18fbWIyeU1utFA31mzGaVyzjyL9ZnfP'
+			  
                 const data = { id: _user.iduser }
-
+				
 				delete  _user.password
                  _user.password = ''
 

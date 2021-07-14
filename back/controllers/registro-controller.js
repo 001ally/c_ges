@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt')
 
 module.exports = { async store  (req,res) {
+
+    
     const {name,email,password} = req.body
     const { user } = req.db
    // console.log(process.env.BCRYPT_SALT);
@@ -8,7 +10,7 @@ module.exports = { async store  (req,res) {
     const _user = await user.create({
         name, email, password:hash
     })
-		console.log(name);
+		
      _user.password = ''
         res.json(_user)
 }

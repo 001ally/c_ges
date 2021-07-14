@@ -28,8 +28,8 @@
           <v-tabs-items v-model="tabsForm" cols="3">
             <v-tab-item key="register">
               <v-form class="text-center grey lighten-3"
-             
-              v-if="name == ''">
+              ref="form"
+              >
                 <v-text-field
                   v-model="name"
                   label="Name"
@@ -103,7 +103,6 @@
 
 import {login, registro} from '../api/auth'
 
-
 export default {
   name: "app",
   data: () => ({
@@ -114,11 +113,9 @@ export default {
     nameRules: [
       (value) => !!value || "O nome é obrigatório",
       (value) =>
-        (value && value.length >= 10) ||
-        "O nome deve ter no mínimo 10 caracteres",
-      (value) =>
-        (value && value.length <= 20) ||
-        "O nome deve ter menos do que 20 caracteres",
+        (value && value.length >= 5) ||
+        "O nome deve ter no mínimo 5 caracteres"
+     
     ],
     emailRules: [
       (value) => !!value || "O e-mail é obrigatório",
@@ -140,11 +137,12 @@ export default {
   }),
   methods: {
     Registrar() {
-      // if (this.name == ''){
-      //   alert('preencha os campos vazios')
-      // }
-      if (!this.name == '' ) {
+     
+      if (this.name, this.email, this.password == 0 ) {
         console.error('erro')
+        alert('preencha todos os campos')
+        throw new Error("name can't be null ");
+        
       }
      registro(this.name, this.email, this.password).then(res =>{
        console.log(res.data);
@@ -152,16 +150,23 @@ export default {
        location.reload()
      })
     },
+
     Acessar(){ 
+       if ( this.email, this.password == 0 ) {
+        console.error('erro')
+        alert('preencha todos os campos')
+        throw new Error("name can't be null ");
+        
+      }
+      
      login(this.email,this.password).then((response) =>{
        console.log(response.data)
-
+    
        localStorage.setItem('token', response.data.token)
        localStorage.setItem('user', JSON.stringify(response.data.user))
 
        this.$router.push({name: 'dashboard'})
-     })
-     .catch( error => {
+     }).catch( error => {
        //alert(error.Error)
        console.log(error.response.data.Error);
        alert('Dados inseridos incorrectos ou campos vazios')
