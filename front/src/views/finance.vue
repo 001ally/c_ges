@@ -6,7 +6,7 @@
           <v-card-text>
             <p class="text-h6 green white--text">Pagamentos dos moradores</p>
           </v-card-text>
-          <p class="text-h5 green--text">{{ totalPagamentos }}</p>
+          <p class="text-h5 green--text">{{ totalPagamentos }} AKZ</p>
         </v-card>
         <br />
 
@@ -26,7 +26,7 @@
           <v-card-text>
             <p class="text-h6 red white--text">Despesas</p></v-card-text
           >
-          <p class="text-h5 red--text">{{ totalDespesas }}</p>
+          <p class="text-h5 red--text">{{ totalDespesas }} AKZ </p>
         </v-card>
         <br />
         <v-dialog v-model="dialog" persistent max-width="600px">
@@ -142,7 +142,8 @@
             :items="despesas"
             :items-per-page="5"
             class="elevation-1"
-          ></v-data-table>
+          >
+          </v-data-table>
         </div>
       </div>
       <br />
@@ -152,7 +153,7 @@
           <v-card-text>
             <p class="text-h6 blue white--text">Saldo disponivel</p>
           </v-card-text>
-          <p class="text-h5 blue--text">{{ totalPagamentos - totalDespesas  }}</p>
+          <p class="text-h5 blue--text">{{ totalPagamentos - totalDespesas  }} AKZ</p>
         </v-card>
       </div>
     </div>

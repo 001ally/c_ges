@@ -70,7 +70,9 @@
           <v-icon left> mdi-finance </v-icon>
           Finanças</v-btn
         >
+        
       </div>
+      
     </div>
 
     <h3>Apartamentos</h3>
@@ -89,6 +91,7 @@
       <v-data-table :headers="headers" :items="apartamentos" :search="search">
         <template v-slot:item.actions="{ item }">
           <v-icon small @click="adicionarPagamento(item)"> mdi-cash </v-icon>
+            <v-icon small @click="apagarPagamento(item)"> mdi-delete </v-icon>
         </template>
       </v-data-table>
     </v-card>
@@ -289,6 +292,18 @@ export default {
           }
         );
     },
+    apagarPagamento(edificio){
+           if (window.confirm("Tem certeza que quer apagar este apartamento?")) {
+        axios
+          .delete(
+            "http://localhost:1000/api/v1/apartamento/" + edificio.idedificio
+          )
+          .then((resp) => resp.data);
+        alert("apartamento apagado com sucesso");
+       // window.location.reload();
+      }
+    }
+
   },
 };
 </script>
