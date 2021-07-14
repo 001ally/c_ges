@@ -16,7 +16,7 @@ module.exports = (function () {
           logging: console.log,
           plain: false,
           raw: true,
-          type: Sequelize.QueryTypes.SELECT, replacements: [idedificio] 
+          type: Sequelize.QueryTypes.SELECT, replacements: [idedificio]
         });
 
 
@@ -29,22 +29,22 @@ module.exports = (function () {
   }
 
   async function createPay(req, res) {
-    const {morador, valor, data, idedificio } = req.body
+    const { morador, valor, data, idedificio } = req.body
     const { pagamentos } = req.db
-    
+
     try {
       const pagamentos = await db.sequelize.query(
-				"INSERT INTO `c_ges`.`pagamentos`(`valor`,`data`,`morador`,`idedificio`) VALUES (?, ?, ?, ?);",
-				{ type: Sequelize.QueryTypes.INSERT, replacements: [valor, data, morador, idedificio] });
+        "INSERT INTO `c_ges`.`pagamentos`(`valor`,`data`,`morador`,`idedificio`) VALUES (?, ?, ?, ?);",
+        { type: Sequelize.QueryTypes.INSERT, replacements: [valor, data, morador, idedificio] });
 
-			res.json(pagamentos)
+      res.json(pagamentos)
     }
     catch (error) {
       console.error(error)
     }
 
   }
-  
+
   async function editPagamento(req, res) {
     const {
       idpagamentos,

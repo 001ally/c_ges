@@ -1,6 +1,6 @@
 const { Sequelize } = require('../models/index');
 const db = require('../models/index');
-const { index } = require('./user-controller');
+//const { index } = require('./user-controller');
 
 const router = require('express').Router()
 
@@ -86,8 +86,8 @@ module.exports = (function () {
 		const despesas = await despesa.findOne({
 			where: { iddespesa }
 		})
-			despesas.tipodespesa = tipodespesa
-			despesas.descricao = descricao,
+		despesas.tipodespesa = tipodespesa
+		despesas.descricao = descricao,
 			despesas.data = data,
 			despesas.edificio_idedificio = edificio_idedificio,
 			despesas.valor = valor

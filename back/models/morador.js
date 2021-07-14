@@ -7,10 +7,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       morador.belongsTo(models.apartamento, {
-        targetKey:'idapartamentos',
-        foreignKey:'apartamento_idapartamentos'
+        targetKey: 'idapartamentos',
+        foreignKey: 'apartamento_idapartamentos'
       })
-      morador.hasMany(models.pagamentos, {sourceKey:'idmorador', foreignKey:'morador_idmorador'})
+      morador.hasMany(models.pagamentos, { sourceKey: 'idmorador', foreignKey: 'morador_idmorador' })
     }
   };
   morador.init({
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     apartamento_idapartamentos: DataTypes.INTEGER
   }, {
     sequelize,
-    timestamps:false,
+    timestamps: false,
     tableName: 'morador',
     modelName: 'morador',
   });

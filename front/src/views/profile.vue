@@ -73,10 +73,10 @@ export default {
   created() {
  
     axios
-      .get("http://localhost:1000/api/v1/user/", null)
+      .put("http://localhost:1000/api/v1/user/", null)
       .then(
         (response) => {
-          this.apartamentos = response.data;
+          this.users = response.data;
           console.log(response.data);
         },
         (error) => {
@@ -85,6 +85,7 @@ export default {
       );
   },
   data: () => ({
+    name:'',
     dialog: false,
     loading: false,
     selection: 1,

@@ -87,13 +87,8 @@
       </v-card-title>
 
       <v-data-table :headers="headers" :items="apartamentos" :search="search">
-       
-        <template v-slot:item.actions="{ item }"> 
-          <v-icon
-            small
-            @click="adicionarPagamento(item)">
-            mdi-cash
-          </v-icon>
+        <template v-slot:item.actions="{ item }">
+          <v-icon small @click="adicionarPagamento(item)"> mdi-cash </v-icon>
         </template>
       </v-data-table>
     </v-card>
@@ -118,8 +113,9 @@
               ></v-text-field>
             </v-row>
             <v-row>
-              <v-text-field label="nome do morador"
-              v-model="pagamento.nome"
+              <v-text-field
+                label="nome do morador"
+                v-model="pagamento.nome"
               ></v-text-field>
             </v-row>
             <v-row>
@@ -132,7 +128,8 @@
                   transition="scale-transition"
                   offset-y
                   min-width="auto"
-                > {{pagamento.data}}
+                >
+                  {{ pagamento.data }}
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                       v-model="pagamento.data"
@@ -148,11 +145,7 @@
                     <v-btn text color="primary" @click="menu = false">
                       Cancel
                     </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="$refs.menu.save(data)"
-                    >
+                    <v-btn text color="primary" @click="$refs.menu.save(data)">
                       ok
                     </v-btn>
                   </v-date-picker>
@@ -205,7 +198,7 @@ export default {
       menu: false,
       pagamento: {
         //edificio_idedificio: this.$route.params.edificioId,
-        nome:null,
+        nome: null,
         valor: null,
         data: null,
       },
@@ -230,22 +223,22 @@ export default {
         { text: "Contacto", value: "numerofixo" },
         { text: "Andar", value: "andar" },
         { text: "Nº Porta ", value: "numero" },
-        { text: "", value: 'actions', sortable: false}
+        { text: "", value: "actions", sortable: false },
       ],
     };
   },
   methods: {
-    adicionarPagamento (apartamento) {
-      console.log(apartamento)
-      this.apartamentoPagamento = apartamento
+    adicionarPagamento(apartamento) {
+      console.log(apartamento);
+      this.apartamentoPagamento = apartamento;
       this.pagamento = {
         //edificio_idedificio: this.$route.params.edificioId,
 
-        nome:apartamento.proprietario,
+        nome: apartamento.proprietario,
         valor: null,
         data: null,
-      }
-      this.dialogue = true
+      };
+      this.dialogue = true;
     },
     guardarPagamento() {
       //var gt = this;
@@ -253,8 +246,8 @@ export default {
         morador: this.pagamento.nome,
         valor: this.pagamento.valor,
         data: this.pagamento.data,
-        idedificio: this.$route.params.edificioId
-      }
+        idedificio: this.$route.params.edificioId,
+      };
       axios.post(`http://localhost:1000/api/v1/pagamento`, data).then(
         (response) => {
           console.log(response);
@@ -297,7 +290,6 @@ export default {
         );
     },
   },
-  
 };
 </script>
 <style>

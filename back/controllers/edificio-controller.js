@@ -6,8 +6,6 @@ module.exports = (function () {
 	async function byId(req, res) {
 		let result = []
 		const { edificio } = req.db
-		const { apartamento } = req.db
-		const { user } = req.db
 		const { userId } = req.params;
 		console.log(userId);
 
@@ -101,6 +99,7 @@ module.exports = (function () {
 	}
 
 	router.get('/:userId', byId)
+	router.get('/', show)
 	router.post('/', create)
 	router.put('/', update)
 	router.delete('/:id', destroy)

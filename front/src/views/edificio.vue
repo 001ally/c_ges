@@ -108,8 +108,6 @@ export default {
       user = JSON.parse(user);
     }
 
-    //console.log(user);
-
     axios
       .get("http://localhost:1000/api/v1/edificio/" + user.iduser, null)
       .then(
@@ -169,14 +167,7 @@ export default {
         );
     },
     apagarEdificio(edificio) {
-      // axios.delete(URL, {
-      //   headers: {
-      //     Authorization: authorizationToken,
-      //   },
-      //   data: {
-      //     source: source,
-      //   },
-      // });
+
       if (window.confirm("Tem certeza que quer apagar este edificio?")) {
         axios
           .delete(

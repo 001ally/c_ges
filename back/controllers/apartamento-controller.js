@@ -1,133 +1,102 @@
 //const router = require("../routes/api")
 const router = require('express').Router()
 module.exports = (function () {
-    async function apart(req, res) {
-        const { apartamento } = req.db
-        const {proprietario, andar, numero, idedificio, numerofixo, } = req.body
-        const apartamentos = await apartamento.findAll({
-            attributes: [
-                "idapartamentos",
-                "proprietario",
-                "andar",
-                "numero",
-                "edificio_idedificio",
-                "numerofixo"
-            ]
-        })
-       
-        res.json(apartamentos)
-    }
+	async function apart(req, res) {
+		const { apartamento } = req.db
+		const { proprietario, andar, numero, idedificio, numerofixo, } = req.body
+		const apartamentos = await apartamento.findAll({
+			attributes: [
+				"idapartamentos",
+				"proprietario",
+				"andar",
+				"numero",
+				"edificio_idedificio",
+				"numerofixo"
+			]
+		})
 
-    async function  getAptByIdEdificio(req, res, params) {
+		res.json(apartamentos)
+	}
 
-        const { id } = req.params;
-        const { apartamento } = req.db
-        const { proprietario,andar, numero, idedificio, numerofixo, } = req.body
-        const apartamentos = await apartamento.findAll({
-            where: { edificio_idedificio: id },
-            attributes: [
+	async function getAptByIdEdificio(req, res, params) {
 
-                "idapartamentos",
-                "proprietario",
-                "andar",
-                "numero",
-                "edificio_idedificio",
-                "numerofixo"
-            ]
-        })
+		const { id } = req.params;
+		const { apartamento } = req.db
+		const { proprietario, andar, numero, idedificio, numerofixo, } = req.body
+		const apartamentos = await apartamento.findAll({
+			where: { edificio_idedificio: id },
+			attributes: [
 
-        res.json(apartamentos)
-    }
-    async function createApart (req, res) {
+				"idapartamentos",
+				"proprietario",
+				"andar",
+				"numero",
+				"edificio_idedificio",
+				"numerofixo"
+			]
+		})
 
-        const {
-            proprietario,
-            andar,
-            numero,
-            edificio_idedificio,
-            numerofixo
-        } = req.body
-        const { apartamento } = req.db
-        const apartamentos = await apartamento.create({
-            proprietario, andar, numero, edificio_idedificio, numerofixo
-        })
-        res.json(apartamentos)
-    }
-    // async function createApart(req, res) {
-	// 	const {
-    //         proprietario,
-    //         andar,
-    //         numero,
-    //         edificio_idedificio,
-    //         numerofixo
-    //     } = req.body
-    //     console.log(edificio_idedificio);
-	// 	const { authorization } = req.headers
+		res.json(apartamentos)
+	}
+	async function createApart(req, res) {
 
-	// 	const token = authorization.split(" ")[1]
-	// 	if (!token) {
-	// 		return res.status(401).json({
-	// 			error: 'not authorization'
-	// 		})
-	// 	}
-	// 	try {
+		const {
+			proprietario,
+			andar,
+			numero,
+			edificio_idedificio,
+			numerofixo
+		} = req.body
+		const { apartamento } = req.db
+		const apartamentos = await apartamento.create({
+			proprietario, andar, numero, edificio_idedificio, numerofixo
+		})
+		res.json(apartamentos)
+	}
 
-	// 		const secret = 'B18fbWIyeU1utFA31mzGaVyzjyL9ZnfP'
-	// 		const payload = jwt.verify(token, secret)
-	// 		console.log(payload)
-    //         const { apartamento } = req.db
-    //     const apartamentos = await apartamento.create({
-    //         proprietario, andar, numero, edificio_idedificio, numerofixo
-    //     })
-    //     res.json(apartamentos)
-			
-	// 	} catch (error) {
-	// 		console.log(error)
-	// 	}
-	// }
-    async function editApart (req, res) {
+	async function editApart(req, res) {
 
-        const {
-            idapartamentos,
-            proprietario,
-            andar,
-            numero,
-            edificio_idedificio,
-            numerofixo
-        } = req.body
-        const { apartamento } = req.db
-        const apartamentos = await apartamento.findOne({
-            where: { idapartamentos }
-        })  
-            apartamentos.proprietario = proprietario
-            apartamentos.andar = andar, 
-            apartamentos.numero = numero, 
-            apartamentos.edificio_idedificio = edificio_idedificio,
-            apartamentos.numerofixo = numerofixo
-            await apartamentos.save()
-            
-        res.json(apartamentos)
-    }
-    async function apagarApart (req, res) {
-        const { id } = req.params
-        const { apartamento } = req.db
+		const {
+			idapartamentos,
+			proprietario,
+			andar,
+			numero,
+			edificio_idedificio,
+			numerofixo
+		} = req.body
+		const { apartamento } = req.db
+		const apartamentos = await apartamento.findOne({
+			where: { idapartamentos }
+		})
+		apartamentos.proprietario = proprietario
+		apartamentos.andar = andar,
+			apartamentos.numero = numero,
+			apartamentos.edificio_idedificio = edificio_idedificio,
+			apartamentos.numerofixo = numerofixo
+		await apartamentos.save()
 
-        const apartamentos = await apartamento.destroy({
-            where: { idapartamentos : id }
-        })
-   
-        res.json(apartamentos)
-    }
+		res.json(apartamentos)
+	}
+	async function apagarApart(req, res) {
+		const { id } = req.params
+		const { apartamento } = req.db
 
-    router.get('/', apart)
-    router.get('/:id',getAptByIdEdificio )
+		const apartamentos = await apartamento.destroy({
+			where: { idapartamentos: id }
+		})
+
+		res.json(apartamentos)
+	}
+
+	router.get('/', apart)
+	router.get('/:id', getAptByIdEdificio)
 	router.post('/', createApart)
 	router.put('/', editApart)
 	router.delete('/:id', apagarApart)
 	return router
 
-}) ()
-   
+})()
+
 
 
 
