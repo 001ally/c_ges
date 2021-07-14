@@ -9,9 +9,9 @@
         ></v-progress-linear>
       </template>
 
-      <v-img height="250" src="../assets/me.png"></v-img>
-      <v-card-subtitle>Nome: Alícia Pereira</v-card-subtitle>
-      <v-card-text>Email: ally@gmail.com</v-card-text>
+      <v-img height="250" src="../assets/emoji2.png"></v-img>
+      <v-card-subtitle> Username: {{name}}</v-card-subtitle>
+     
       <v-dialog v-model="dialog" persistent max-width="600px">
         <template v-slot:activator="{ on, attrs }">
           <v-btn color="primary" dark v-bind="attrs" v-on="on">
@@ -68,11 +68,27 @@
    
 
 <script>
+import axios from "axios"
 export default {
+  created() {
+ 
+    axios
+      .get("http://localhost:1000/api/v1/user/", null)
+      .then(
+        (response) => {
+          this.apartamentos = response.data;
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  },
   data: () => ({
     dialog: false,
     loading: false,
     selection: 1,
+    name: JSON.parse(localStorage.getItem('user')).name,
   }),
   methods: {
     reserve() {

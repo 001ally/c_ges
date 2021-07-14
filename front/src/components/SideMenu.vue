@@ -16,7 +16,7 @@
         ></v-img>
       </v-list-item-avatar>
 
-          <v-list-item-title>Alícia Pereira</v-list-item-title>
+          <v-list-item-title>{{name}}</v-list-item-title>
 
           <v-btn icon @click.stop="mini = !mini">
             <v-icon>mdi-chevron-left</v-icon>
@@ -45,7 +45,8 @@ export default {
   name:'dashboard',
    data () {
       return {
-        me: require('../assets/me.png'),
+        name: JSON.parse(localStorage.getItem('user')).name,
+        me: require('../assets/logofb.png'),
         drawer: true,
         items: [
           { title: 'Página inicial', icon: 'mdi-home', action:()=>{ this.$router.push('/dashboard')}},

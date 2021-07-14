@@ -2,7 +2,7 @@
   <div class="dasboard">
     <h1>Dashboard</h1>
     <h2>Bem-vindo/a {{ name }}</h2>
-    
+  
   </div>
 </template>
 <script>
@@ -11,7 +11,7 @@ export default {
     dialog: false,
 
     name: JSON.parse(localStorage.getItem('user')).name,
-     
+    
   }),
   methods:{
    

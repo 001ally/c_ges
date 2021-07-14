@@ -6,10 +6,10 @@
           <v-card-text>
             <p class="text-h6 green white--text">Pagamentos dos moradores</p>
           </v-card-text>
-          <p class="text-h5 green--text">{{1 }}</p>
+          <p class="text-h5 green--text">{{ totalPagamentos }}</p>
         </v-card>
         <br />
-       
+
         <br />
         <br />
         <v-data-table
@@ -26,7 +26,7 @@
           <v-card-text>
             <p class="text-h6 red white--text">Despesas</p></v-card-text
           >
-          <p class="text-h5 red--text">{{}}</p>
+          <p class="text-h5 red--text">{{ totalDespesas }}</p>
         </v-card>
         <br />
         <v-dialog v-model="dialog" persistent max-width="600px">
@@ -152,7 +152,7 @@
           <v-card-text>
             <p class="text-h6 blue white--text">Saldo disponivel</p>
           </v-card-text>
-          <p class="text-h5 blue--text">{{500.000 }}</p>
+          <p class="text-h5 blue--text">{{ saldo }}</p>
         </v-card>
       </div>
     </div>
@@ -228,7 +228,6 @@ export default {
   },
 
   methods: {
-    
     reset() {
       this.$refs.form.reset();
     },
@@ -248,14 +247,11 @@ export default {
         );
     },
     getPayments() {
-      console.log(this.$route.params)
+      console.log(this.$route.params);
       var edificioId = this.$route.params.edificioId;
       console.log(edificioId);
       axios
-        .get(
-          "http://localhost:1000/api/v1/pagamento/" + edificioId,
-          null
-        )
+        .get("http://localhost:1000/api/v1/pagamento/" + edificioId, null)
         .then(
           (response) => {
             this.pagamentos = response.data;
@@ -297,22 +293,30 @@ export default {
       );
     },
   },
-    computed: {
-    incomingsTotal () {
-      return _.sumBy(this.incomings, incoming => {
-        return parseFloat(incoming.value)
-      })
+  computed: {
+    totalDespesas() {
+      let acumDespesas = 0;
+      for (var i = 0; i < this.despesas.length; i++) {
+        acumDespesas += this.despesas[i].valor;
+      }
+      return acumDespesas;
+    },
+    totalPagamentos() {
+      let acumPagamentos = 0;
+      for (var i = 0; i < this.pagamentos.length; i++) {
+        acumPagamentos += this.pagamentos[i].valor;
+      }
+      return acumPagamentos;
     },
 
-    expensesTotal () {
-      return _.sumBy(this.expenses, expense => {
-        return parseFloat(expense.value)
-      })
-    },
+    saldo() {
+     var pay = this.acumPagamentos
+     var desp = this.acumDespesas
+     var total = pay + desp
+     return total
+     console.log('pagamentos:',pay);
 
-    balance () {
-      //return this.valor - this.valor
-    }
+    },
   },
 };
 </script>

@@ -6,10 +6,9 @@
   >
     <v-toolbar>
       <v-toolbar-title class="text-uppercase">
-        <v-app-bar-nav-icon
-          v-model="drawer"
-          @click="drawer = true"
-        ></v-app-bar-nav-icon>
+        <v-icon
+          
+        > mdi-city</v-icon>
         <span class="font-weight-light">C_</span>
         <span>ges</span>
       </v-toolbar-title>
