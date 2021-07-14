@@ -105,7 +105,7 @@
       </template> -->
       <v-card>
         <v-card-title>
-          <span class="text-h5">Payment</span>
+          <span class="text-h5">ADD Payment</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -248,7 +248,7 @@ export default {
       this.dialogue = true
     },
     guardarPagamento() {
-      var gt = this;
+      //var gt = this;
       let data = {
         morador: this.pagamento.nome,
         valor: this.pagamento.valor,
@@ -259,8 +259,9 @@ export default {
         (response) => {
           console.log(response);
           //gt.getPayments();
-          gt.dialog = false;
-          gt.reset();
+          this.dialog = false;
+          //this.reset();
+          window.location.reload();
         },
         (error) => {
           console.log(error);
@@ -296,6 +297,7 @@ export default {
         );
     },
   },
+  
 };
 </script>
 <style>

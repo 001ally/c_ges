@@ -6,90 +6,10 @@
           <v-card-text>
             <p class="text-h6 green white--text">Pagamentos dos moradores</p>
           </v-card-text>
-          <p class="text-h5 green--text">500.000 AKZ</p>
+          <p class="text-h5 green--text">{{1 }}</p>
         </v-card>
         <br />
-        <!-- <v-dialog v-model="dialogue" persistent max-width="600px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn dark v-bind="attrs" v-on="on" class="btn-pay">
-              Adicionar pagamento
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">Payment</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-text-field
-                    label="valor do pagamento"
-                    :counter="10"
-                    required
-                    v-model="pagamento.valor"
-                  ></v-text-field>
-                </v-row>
-                <v-row>
-                  <v-text-field
-                    label="nome do morador"
-                    v-model="pagamento.nome"
-                  ></v-text-field>
-                </v-row>
-                <v-row>
-                  <v-col cols="12">
-                    <v-menu
-                      ref="menu"
-                      v-model="menu"
-                      :close-on-content-click="false"
-                      :return-value.sync="date"
-                      transition="scale-transition"
-                      offset-y
-                      min-width="auto"
-                    >
-                      {{ pagamento.data }}
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="pagamento.data"
-                          label="Picker in menu"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-bind="attrs"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="pagamento.data"
-                        no-title
-                        scrollable
-                      >
-                        <v-spacer></v-spacer>
-                        <v-btn text color="primary" @click="menu = false">
-                          Cancel
-                        </v-btn>
-                        <v-btn
-                          text
-                          color="primary"
-                          @click="$refs.menu.save(data)"
-                        >
-                          ok
-                        </v-btn>
-                      </v-date-picker>
-                    </v-menu>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogue = false">
-                Close
-              </v-btn>
-              <v-btn color="blue darken-1" text @click="guardarPagamento">
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog> -->
+       
         <br />
         <br />
         <v-data-table
@@ -106,7 +26,7 @@
           <v-card-text>
             <p class="text-h6 red white--text">Despesas</p></v-card-text
           >
-          <p class="text-h5 red--text">500.000 AKZ</p>
+          <p class="text-h5 red--text">{{}}</p>
         </v-card>
         <br />
         <v-dialog v-model="dialog" persistent max-width="600px">
@@ -232,7 +152,7 @@
           <v-card-text>
             <p class="text-h6 blue white--text">Saldo disponivel</p>
           </v-card-text>
-          <p class="text-h5 blue--text">500.000 AKZ</p>
+          <p class="text-h5 blue--text">{{500.000 }}</p>
         </v-card>
       </div>
     </div>
@@ -264,16 +184,6 @@ export default {
       },
       despesas: [],
       pagamentos: [],
-      headers: [
-        {
-          text: "Valor Pagamento",
-          align: "start",
-          sortable: false,
-          value: "valor",
-        },
-        { text: "Nome do morador", value: "nome" },
-        { text: "Data pagamento", value: "data" },
-      ],
       headersPagamentos: [
         {
           text: "Valor Pagamento",
@@ -318,6 +228,7 @@ export default {
   },
 
   methods: {
+    
     reset() {
       this.$refs.form.reset();
     },
@@ -386,7 +297,23 @@ export default {
       );
     },
   },
-  computed: {},
+    computed: {
+    incomingsTotal () {
+      return _.sumBy(this.incomings, incoming => {
+        return parseFloat(incoming.value)
+      })
+    },
+
+    expensesTotal () {
+      return _.sumBy(this.expenses, expense => {
+        return parseFloat(expense.value)
+      })
+    },
+
+    balance () {
+      //return this.valor - this.valor
+    }
+  },
 };
 </script>
 
