@@ -202,6 +202,8 @@ export default {
 /* * {
   display: flex;
   flex-wrap: wrap;
-  margin: 15px;
+ 
+  margin-bottom: 10px;
+  
 } */
 </style>
