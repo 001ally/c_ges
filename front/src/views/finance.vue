@@ -152,7 +152,7 @@
           <v-card-text>
             <p class="text-h6 blue white--text">Saldo disponivel</p>
           </v-card-text>
-          <p class="text-h5 blue--text">{{ saldo }}</p>
+          <p class="text-h5 blue--text">{{ totalPagamentos - totalDespesas  }}</p>
         </v-card>
       </div>
     </div>
@@ -310,12 +310,9 @@ export default {
     },
 
     saldo() {
-     var pay = this.acumPagamentos
-     var desp = this.acumDespesas
-     var total = pay + desp
-     return total
-     console.log('pagamentos:',pay);
-
+       
+   
+   
     },
   },
 };
